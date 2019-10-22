@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+	function send(){
+		var age = document.getElementById('age').value;
+		if(age == "" || age == null){
+			alert("나이를 입력하세요.");
+			document.getElementById('age').focus();
+			return false;
+		}else {
+			document.sub1.submit();
+		}
+	}
+	
+	function checkEnter(event){
+		if(event.keyCode == 13){
+			event.preventDefault();
+		}
+	}
+</script>
+<body>
+	<form name="sub1" action="request.jsp" method="get" onkeydown="return checkEnter(event)">
+		나이 : <input type="text" id="age" name="age" placeholder="나이를 입력하세요.">
+		<input type="button" value="제출" onclick="send()">
+	</form>
+</body>
+</html>

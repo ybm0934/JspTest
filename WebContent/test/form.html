@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="FormEx" method="post">
+		<table>
+			<tr>
+				<th>이름</th>
+				<td>
+					<input type="text" name="name">
+				</td>
+			</tr>
+			<tr>
+				<th>아이디</th>
+				<td>
+					<input type="text" name="id">
+				</td>
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td>
+					<input type="password" name="pwd">
+				</td>
+			</tr>
+			<tr>
+				<th>취미</th>
+				<td>
+					<label><input type="checkbox" name="hobby" value="read">독서</label>
+					<label><input type="checkbox" name="hobby" value="cook">요리</label>
+					<label><input type="checkbox" name="hobby" value="run">조깅</label>
+					<label><input type="checkbox" name="hobby" value="swim">수영</label>
+					<label><input type="checkbox" name="hobby" value="sleep">취침</label>
+				</td>
+			</tr>
+			<tr>
+				<th>전공</th>
+				<td>
+					<label><input type="radio" name="major" value="kor">국어</label>
+					<label><input type="radio" name="major" value="eng">영어</label>
+					<label><input type="radio" name="major" value="mat">수학</label>
+					<label><input type="radio" name="major" value="sci">과학</label>
+				</td>
+			</tr>
+			<tr>
+				<th>선택</th>
+				<td>
+					<select name="protocol">
+						<option value="sel" selected="selected">선택</option>
+						<option value="http">http</option>
+						<option value="ftp">ftp</option>
+						<option value="smtp">smtp</option>
+						<option value="pop">pop</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<input type="submit" value="전송">
+				</th>
+				<th>
+					<input type="reset" value="초기화">				
+				</th>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>
