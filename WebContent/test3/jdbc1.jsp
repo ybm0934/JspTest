@@ -6,7 +6,8 @@
 	ResultSet rs;
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@192.168.6.166:1521:orcl";
+	//String url = "jdbc:oracle:thin:@192.168.6.166:1521:orcl";
+	String url = "jdbc:oracle:thin:@192.168.123.7:1521:xe";
 	String uid = "hr";
 	String upw = "hr123";%>
 <!DOCTYPE html>
