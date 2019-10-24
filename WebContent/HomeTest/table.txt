@@ -1,0 +1,29 @@
+--시퀀스
+drop sequence member_seq;
+create sequence member_seq
+start with 0
+increment by 1
+minvalue 0
+nocycle;
+
+--테이블
+drop table member;
+create table member(
+    no number primary key,
+    id varchar2(20) not null,
+    password varchar2(20) not null,
+    name varchar2(20) not null,
+    phone1 varchar2(5),
+    phone2 varchar2(5),
+    phone3 varchar2(5),
+    phone varchar2(15) unique,
+    gender varchar2(6),
+    regdate date default sysdate
+);
+
+--데이터
+insert into member values(member_seq.nextval, 'a', 'a', '홍길동', '010', '1234', '5678', '01012345678', '남자', sysdate);
+insert into member values(member_seq.nextval, 'abcd', 'bbb', '고구마', '011', '1212', '4545', '01012124545', '여자', sysdate);
+insert into member values(member_seq.nextval, 'bbbb', '1', '감자', '010', '6554', '1234', '01065541234', '여자', sysdate);
+insert into member values(member_seq.nextval, 'tornado', 'ssss', '태풍민', '010', '6666', '7777', '01066667777', '남자', sysdate);
+commit;

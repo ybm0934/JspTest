@@ -1,0 +1,17 @@
+--시퀀스
+drop sequence pd_seq;
+create sequence pd_seq
+start with 0
+increment by 1
+minvalue 0
+nocache;
+
+--테이블
+DROP TABLE PD;
+CREATE TABLE pd
+(
+    no         NUMBER PRIMARY KEY,
+    pdName     VARCHAR2 (50) NOT NULL,
+    price      NUMBER NULL,
+    regdate    DATE DEFAULT SYSDATE
+);

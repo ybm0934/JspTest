@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Edit
  */
-@WebServlet("/Edit")
+@WebServlet("/HomeTest/Edit")
 public class Edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

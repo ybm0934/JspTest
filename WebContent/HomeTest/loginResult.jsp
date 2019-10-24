@@ -26,6 +26,6 @@
 	password : <%=password %><br>
 	ip : <%=ip %><br>
 	port : <%=port %><br><br>
-	<a href="edit.jsp">회원정보 수정</a>
+	<a href="/HomeTest/edit.jsp">회원정보 수정</a>
 </body>
 </html>
