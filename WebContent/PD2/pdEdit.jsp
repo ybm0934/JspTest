@@ -1,61 +1,22 @@
+<%@page import="com.pd.Model.PdDAO"%>
+<%@page import="com.pd.Model.PdDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%
 	String no = request.getParameter("no");
-	System.out.println("no : " + no);
-
-	String pdName = "";
-	int price = 0;
-	Timestamp regdate = null;
-
-	Connection con = null;
-	PreparedStatement ps = null;
-	ResultSet rs = null;
-
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@192.168.6.166:1521:orcl";
-	String uid = "herb";
-	String upw = "herb123";
+	if(no == null || no.isEmpty()){
+		System.out.println("파라미터 no가 없습니다. 잘못된 url경로!");
+		return;
+	}
+	
+	PdDAO pdDao = new PdDAO();
+	PdDTO dto = null;
 
 	try {
-		//[1]드라이버 연결
-		Class.forName(driver);
-		System.out.println("pdEdit.jsp 드라이버 연결 성공");
-
-		//[2]DB 연결
-		con = DriverManager.getConnection(url, uid, upw);
-		System.out.println("pdEdit.jsp DB 연결 성공");
-
-		//[3]SQL 처리
-		String sql = "select * from pd where no = ?";
-		ps = con.prepareStatement(sql);
-		ps.setInt(1, Integer.parseInt(no));
-
-		//[4]SQL 실행
-		rs = ps.executeQuery();
-
-		//[5]출력
-		if (rs.next()) {
-			pdName = rs.getString("pdname");
-			price = rs.getInt("price");
-			regdate = rs.getTimestamp("regdate");
-		}
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
+		dto = pdDao.selectByNo(Integer.parseInt(no));
 	} catch (SQLException e) {
 		e.printStackTrace();
-	} finally {
-		try {
-			if (rs != null)
-				rs.close();
-			if (ps != null)
-				ps.close();
-			if (con != null)
-				con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 %>
 <!DOCTYPE html>
@@ -96,13 +57,13 @@
 			<tr>
 				<th>상품명</th>
 				<td>
-					<input type="text" name="pdName" value="<%=pdName%>">
+					<input type="text" name="pdName" value="<%=dto.getPdName()%>">
 				</td>
 			</tr>
 			<tr>
 				<th>가격</th>
 				<td>
-					<input type="text" name="price" value="<%=price%>">
+					<input type="text" name="price" value="<%=dto.getPrice()%>">
 				</td>
 			</tr>
 			<tr>
