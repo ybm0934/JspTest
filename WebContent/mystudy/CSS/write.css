@@ -1,0 +1,87 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
+
+.write_div {
+	width: 700px;
+	margin: 0 auto;
+}
+
+table.write_tbl {
+	width: 700px;
+	height: 650px;
+}
+
+table.write_tbl {
+	border-collapse: collapse;
+	border-top: 2px solid gray;
+}
+
+.write_tbl th:not(:last-child) {
+	text-align: right;
+	padding-right: 15px;
+}
+
+.write_tbl td {
+	padding-left: 15px;
+}
+
+.write_tbl th, .write_tbl td {
+	border-bottom: 1px solid gray;
+}
+
+.write_tbl tbody tr th:last-child {
+	border-bottom: 2px solid gray;
+}
+
+
+.text {
+	width: 70%;
+	height: 20px;
+	outline: none;
+	letter-spacing: 2px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+textarea.textarea {
+	width: 500px;
+	height: 300px;
+	outline: none;
+	resize: none;
+	letter-spacing: 3px;
+	line-height: 20px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 15px;
+}
+
+.btn {
+	width: 100px;
+	height: 40px;
+	border: 1px solid black;
+	font-size: 0.9em;
+	cursor: pointer;
+	font-weight: bold;
+	outline: none;
+}
+
+.regit {
+	background-color: black;
+	color: white;
+}
+
+.regit:hover {
+	border: 1px solid blue;
+	background-color: blue;
+	color: white;
+}
+
+.list {
+	background-color: white;
+}
+
+input[type="password"] {
+	width: 70%;
+	height: 20px;
+	outline: none;
+	letter-spacing: 5px;
+	font-size: 30px;
+}
