@@ -7,9 +7,7 @@
 
 table.list_tbl {
 	width: 100%;
-	border: 1px solid gray;
 	border-collapse: collapse;
-	margin: 0 auto;
 }
 
 .list_tbl th, .list_tbl td {
@@ -21,7 +19,7 @@ table.list_tbl {
 	background: gainsboro;
 }
 
-.list_tbl td:not(:nth-child(2)) {
+.list_tbl td:not (:nth-child(2) ) {
 	text-align: center;
 }
 
@@ -30,42 +28,72 @@ table.list_tbl {
 }
 
 .search_div {
-    text-align: center;
-    padding: 40px 0 40px 0;
+	text-align: center;
+	padding: 40px 0 40px 0;
 }
 
 .write {
-    text-align: right;
+	text-align: right;
 }
 
 .write_btn {
-    width: 100px;
-    height: 40px;
-    background: white;
-    border: 1px solid gray;
-    text-align: center;
+	width: 100px;
+	height: 40px;
+	background: black;
+	color: white;
+	border: 1px solid black;
+	text-align: center;
 	cursor: pointer;
+	outline: none;
 }
 
 .write_btn:hover {
-	background: black;
+	border: 1px solid red;
+	background: red;
 	color: white;
 }
 
 input.search {
-    width: 25%;
-    padding: 8px;
+	width: 25%;
+	padding: 8px;
 }
 
 input.search_btn {
-    border: 1px solid gray;
-    background: white;
-    width: 75px;
-    height: 35px;
-    cursor: pointer;
+	border: 1px solid gray;
+	background: white;
+	width: 75px;
+	height: 35px;
+	cursor: pointer;
 }
 
 .search_select {
-    width: 90px;
-    height: 35px;
+	width: 90px;
+	height: 35px;
+}
+
+.title_a {
+	text-decoration: none;
+	color: gray;
+}
+
+a.title_a:hover {
+	color: red;
+	font-weight: bold;
+	padding-left: 3px;
+}
+
+.page_div {
+	text-align: center;
+	padding-top: 30px;
+	font-size: 20px;
+	letter-spacing: 2px;
+}
+
+.page_div a {
+	color: gray;
+	text-decoration: none;
+}
+
+.page_div a:hover {
+	color: red;
 }

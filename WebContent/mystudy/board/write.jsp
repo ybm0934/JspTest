@@ -11,15 +11,15 @@
 <body>
 	<div class="write_div">
 		<h1>글쓰기</h1>
-		<form action="write_ok.jsp" name="frmWrite" method="post">
+		<form action="write_ok.jsp" name="frmWrite" method="post" onsubmit="return send()">
 			<table class="write_tbl">
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="title" class="text"spellcheck="false"></td>
+					<td><input type="text" name="title" class="text" spellcheck="false"></td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" name="name" class="text"spellcheck="false"></td>
+					<td><input type="text" name="name" class="text" spellcheck="false"></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
@@ -35,8 +35,8 @@
 				</tr>
 				<tr>
 					<th colspan="2">
-						<input type="submit" name="regit" class="btn regit" value="등록">
-						<input type="button" name="list" class="btn list" value="글목록">
+						<input type="submit" class="btn regit" value="등록">
+						<input type="button" class="btn list" value="글목록" onclick="location.href='list.jsp'">
 					</th>
 				<tr>
 			</table>

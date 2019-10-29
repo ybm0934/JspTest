@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+.btn {
+	width: 70px;
+	height: 35px;
+	cursor: pointer;
+	outline: none;
+}
+
+.ok {
+	border: 1px solid black;
+	background: black;
+	color: white;
+}
+
+.cancel {
+	border: 1px solid gray;
+	background: white;
+}
+
+fieldset {
+	width: 400px;
+	height: 250px;
+	margin: 0 auto;
+	padding-bottom: 35px;
+}
+
+.pwd_div {
+	width: 100%;
+	display: table;
+	text-align: center;
+	height: inherit;
+}
+
+.pwd_div2 {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.pwd_box {
+	width: 50%;
+	height: 30px;
+	letter-spacing: 5px;
+	font-size: 3em;
+}
+
+.button_div {
+	margin-top: 30px;
+}
+
+.pwd_div2 p {
+	font-size: 15px;
+	font-weight: bold;
+	padding-bottom: 15px;
+}
