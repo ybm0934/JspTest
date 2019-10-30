@@ -23,18 +23,26 @@
 	</script>
 	<%
 		}
+			String pwd = request.getParameter("pwd");
 
-		String pwd = request.getParameter("pwd");
-		
-		BoardDAO dao = new BoardDAO();
-		BoardVO vo = new BoardVO();
-		String content = "";
-		String email = "";
+			BoardDAO dao = new BoardDAO();
+			BoardVO vo = new BoardVO();
+			String content = "";
+			String email = "";
 
 		try {
-			vo = dao.pwdCheck(Integer.parseInt(no), pwd);
-			
-			
+			int n = dao.pwdCheck(Integer.parseInt(no), pwd);
+			if (n == 0) {
+	%>
+	<!-- 크롬에서 자바 스크립트를 막아버리면 그냥 뚫려버리는 문제가 있다 -->
+	<script>
+		alert("비밀번호가 틀립니다.");
+		history.back();
+	</script>
+	<%
+		}
+			vo = dao.selectByNo(Integer.parseInt(no));
+
 			content = vo.getContent();
 			email = vo.getEmail();
 			if (content == null)

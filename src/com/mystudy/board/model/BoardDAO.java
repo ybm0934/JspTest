@@ -1,7 +1,5 @@
 package com.mystudy.board.model;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,9 +7,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.mystudy.board.controller.ConnectionPoolMgr;
 
@@ -201,7 +196,7 @@ public class BoardDAO {
 			ps.setString(2, pwd);
 
 			n = ps.executeUpdate();
-			System.out.println("게시글 삭제 결과 n = " + n + "입력값 no = " + no + ", pwd = " + pwd);
+			System.out.println("게시글 삭제 결과 n = " + n + ", 입력값 no = " + no + ", pwd = " + pwd);
 
 		} finally {
 			pool.dbClose(ps, con);
@@ -221,53 +216,15 @@ public class BoardDAO {
 			ps.setInt(1, no);
 			ps.setString(2, pwd);
 
-			rs = ps.executeQuery();
-
+			n = ps.executeUpdate();
 			
-
-			System.out.println("글 상세보기, 입력값 no = " + no + ", pwd = " + pwd);
+			System.out.println("pwdCheck 결과 n = " + n + ", 입력값 no = " + no + ", pwd = " + pwd);
 
 		} finally {
 			pool.dbClose(ps, con);
 		}
 		
 		return n;
-
 	}// pwdCheck
-/*	
-	public void pwdCheck(HttpServletResponse response, int no, String pwd) throws SQLException {
-		try {
-			con = pool.getConnection();
-			
-			String sql = "select pwd from board where no = ?";
-			ps = con.prepareStatement(sql);
-			ps.setInt(1, no);
-			
-			rs = ps.executeQuery();
-			
-			while (rs.next()) {
-				String corPwd = rs.getString("pwd");
-				PrintWriter out = response.getWriter();
-				if (pwd.equals(corPwd)) {
-					response.sendRedirect("edit.jsp?no=" + no);
-					System.out.println("비밀번호 확인 성공");
-				} else {
-					response.setContentType("text/html; charset=UTF-8");
-					out.println("<script>");
-					out.println("alert('비밀번호가 틀립니다.');");
-					out.println("history.back();");
-					out.println("</script>");
-					
-					System.out.println("비밀번호 확인 실패");
-				}
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			pool.dbClose(ps, con);
-		}
-		
-	}// pwdCheck
-*/
+	
 }

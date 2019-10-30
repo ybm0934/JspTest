@@ -1,9 +1,8 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.List"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="com.mystudy.board.model.BoardDAO"%>
 <%@page import="com.mystudy.board.model.BoardVO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.mystudy.board.model.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,6 +14,8 @@
 </head>
 <body>
 	<%
+		request.setCharacterEncoding("UTF-8");
+	
 		BoardDAO dao = new BoardDAO();
 
 		//페이징 처리
@@ -38,10 +39,9 @@
 		int num = totalRecord - (curPos);
 	%>
 	<%
-		request.setCharacterEncoding("UTF-8");
-	
 		String category = request.getParameter("category");
 		String keyword = request.getParameter("keyword");
+		
 		if(keyword == null) keyword = "";
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -73,16 +73,14 @@
 					if (list.isEmpty()) {
 				%>
 				<tr>
-					<td colspan="5" style="text-align: center; color: gray;">글이
-						존재하지 않습니다.</td>
+					<td colspan="5" style="text-align: center; color: gray;">글이 존재하지 않습니다.</td>
 				</tr>
 				<%
 					} else {
 							/*	for (int i = 0; i < list.size(); i++) {
 									BoardVO vo = list.get(i);	*/
 							for (int i = 1; i <= pageSize; i++) {
-								if (num < 1)
-									break;
+								if (num < 1) break;
 								BoardVO vo = list.get(curPos++);
 								num--;
 				%>
@@ -118,15 +116,15 @@
 				<%		
 						}else {
 				%>			
-						<a href="list.jsp?currentPage=<%=i %>">[<%=i %>]</a>
+						<a href="list.jsp?currentPage=<%=i %>"><%=i %></a>
 				<%			
 						}
+					}
 						if(lastPage < totalPage){
 				%>
 						<a href="list.jsp?currentPage=<%=lastPage+1 %>">NEXT</a>
 				<%							
 						}
-					}
 				%>
 			</div>
 			<div class="search_div">
@@ -134,8 +132,9 @@
 					<option value="title">제목</option>
 					<option value="content">내용</option>
 					<option value="name">작성자</option>
-				</select> <input type="text" name="keyword" class="search"> <input
-					type="submit" name="search_btn" class="search_btn" value="검색">
+				</select>
+				<input type="text" name="keyword" class="search">
+				<input type="submit" name="search_btn" class="search_btn" value="검색">
 			</div>
 			<div class="write">
 				<input type="button" class="write_btn" value="글쓰기"

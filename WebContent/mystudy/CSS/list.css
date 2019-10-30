@@ -19,12 +19,13 @@ table.list_tbl {
 	background: gainsboro;
 }
 
-.list_tbl td:not (:nth-child(2) ) {
+.list_tbl td:not(:nth-child(2)) {
 	text-align: center;
 }
 
 .list_tbl td:nth-child(2) {
-	padding-left: 10px;
+	padding-left: 20px;
+	text-align: left;
 }
 
 .search_div {

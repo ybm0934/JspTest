@@ -22,6 +22,7 @@
 		<url-pattern>/HomeTest/</url-pattern>
 	</servlet-mapping>
  -->	
+<!-- 
 	<error-page>
 		<error-code>404</error-code>
 		<location>/test2/error404.jsp</location>
@@ -30,5 +31,5 @@
 		<error-code>500</error-code>
 		<location>/test2/error500.jsp</location>
 	</error-page>
-
+ -->
 </web-app>

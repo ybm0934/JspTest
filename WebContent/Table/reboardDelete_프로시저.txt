@@ -1,0 +1,48 @@
+--reboardDelete.sql 프로시저
+
+CREATE OR REPLACE PROCEDURE reboardDelete                            --프로시저 이름
+                                          (--매개변수
+                                           p_no        NUMBER,
+                                           p_groupNo   NUMBER,
+                                           p_step      NUMBER)
+IS
+    --변수선언부
+    cnt   NUMBER;
+BEGIN
+    --처리할 내용
+    --원본글인 경우
+    IF p_step = 0
+    THEN
+        SELECT COUNT (*)
+          INTO cnt
+          FROM reboard
+         WHERE groupno = p_groupno;
+
+        --[1] 답변 달린 원본글인 경우
+        IF cnt > 1
+        THEN
+            UPDATE reboard
+               SET delflag = 'Y'
+             WHERE no = p_no;
+        ELSE
+            --[2] 답변 없는 원본글인 경우
+            DELETE FROM reboard
+                  WHERE no = p_no;
+        END IF;
+    ELSE                                                    --답변글인 경우 - delete
+        DELETE FROM reboard
+              WHERE no = p_no;
+    END IF;
+
+    COMMIT;
+EXCEPTION
+    WHEN OTHERS
+    THEN
+        raise_application_error (-20001, ' 실패!');
+        ROLLBACK;
+END;
+
+/*
+프로시저 실행
+exec reboardDelete(46, 46, 0);
+*/
