@@ -2,13 +2,13 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap');
 
 .write_div {
-	width: 700px;
+	width: 800px;
 	margin: 0 auto;
 }
 
 table.write_tbl {
-	width: 700px;
-	height: 650px;
+	width: 800px;
+	height: 700px;
 }
 
 table.write_tbl {
@@ -43,12 +43,12 @@ table.write_tbl {
 }
 
 textarea.textarea {
-	width: 500px;
+	width: 550px;
 	height: 300px;
 	outline: none;
 	resize: none;
 	letter-spacing: 3px;
-	line-height: 20px;
+	line-height: 25px;
 	font-family: 'Noto Sans KR', sans-serif;
 	font-size: 15px;
 }
@@ -84,4 +84,9 @@ input[type="password"] {
 	outline: none;
 	letter-spacing: 5px;
 	font-size: 30px;
+}
+
+.file_spn{
+	font-size: 13px;
+	color: green;
 }

@@ -1,15 +1,13 @@
 <%@page import="java.io.File"%>
 <%@page import="java.util.Enumeration"%>
-<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="java.io.IOException"%>
-<%@page import="java.net.InetAddress"%>
-<%@page import="com.herbmall.board.model.ReBoardDAO"%>
-<%@page import="com.herbmall.board.model.ReBoardVO"%>
-<%@page import="java.sql.SQLException"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+	//파일 전송 방법 2 (다중 파일 업로드)
+
 	request.setCharacterEncoding("UTF-8");
 
 	String realFolder = ""; //웹 어플리케이션 상의 절대 경로
@@ -78,58 +76,14 @@
 		String id = request.getParameter("id");
 		String id2 = mr.getParameter("id");
 		String address = mr.getParameter("address");
-
+		
 		out.println("<hr>아이디 : " + id + ", 아이디2 : " + id2 + "<br>");
 		out.println("주소 : " + address + "<br>");
-
+		
 	} catch (IOException ioe) {
 		System.out.println("5MB 이상의 파일은 업로드할 수 없습니다.");
 		ioe.printStackTrace();
 	} catch (Exception ex) {
 		ex.printStackTrace();
-	}
-
-	String title = request.getParameter("title");
-	String name = request.getParameter("name");
-	String pwd = request.getParameter("pwd");
-	String email = request.getParameter("email");
-	String content = request.getParameter("content");
-
-	//아이피, 포트, 브라우저 정보 가져오기
-	InetAddress inet = InetAddress.getLocalHost();
-	String ip = inet.getHostAddress();
-	String port = Integer.toString(request.getServerPort());
-	String browser = request.getHeader("User-Agent");
-	System.out.println("아이피 주소 : " + ip + ", 포트번호 : " + port + "브라우저 : " + browser);
-
-	ReBoardDAO dao = new ReBoardDAO();
-	ReBoardVO vo = new ReBoardVO();
-
-	try {
-		vo.setTitle(title);
-		vo.setName(name);
-		vo.setPwd(pwd);
-		vo.setEmail(email);
-		vo.setContent(content);
-
-		int cnt = dao.insertReBoard(vo);
-
-		if (cnt > 0) {
-%>
-<script type="text/javascript">
-	alert("글쓰기가 처리되었습니다.");
-	location.href = "list.jsp";
-</script>
-<%
-	} else {
-%>
-<script type="text/javascript">
-	alert("글쓰기 처리 실패!");
-	history.back();
-</script>
-<%
-	}
-	} catch (SQLException e) {
-		System.out.println("글쓰기 sql error : " + e);
 	}
 %>

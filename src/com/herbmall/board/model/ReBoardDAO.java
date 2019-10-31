@@ -1,6 +1,5 @@
 package com.herbmall.board.model;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -142,23 +141,149 @@ public class ReBoardDAO {
 		return vo;
 	}// selectByNo
 
-	public void deleteReboard(int no, int step, int groupNo) throws SQLException {
-		CallableStatement cs = null;
+	public int updateReadCount(int no) throws SQLException {
+		int n = 0;
 
 		try {
 			con = pool.getConnection();
 
-			String sql = "{call deleteReboard(?,?,?)}";
-			cs = con.prepareCall(sql);
-			cs.setInt(1, no);
-			cs.setInt(2, step);
-			cs.setInt(3, groupNo);
+			String sql = "update reboard set readcount = readcount + 1 where no = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, no);
 
-			cs.execute();
-			System.out.println("글 삭제, 입력값 no = " + no + ", groupNo = " + groupNo + ", step = " + step);
+			n = ps.executeUpdate();
+			System.out.println("조회수 증가 입력값 no = " + no);
 		} finally {
-			pool.dbClose(cs, con);
+			pool.dbClose(ps, con);
 		}
+
+		return n;
+	}// updateReadCount
+
+	public int updateReboard(ReBoardVO vo) throws SQLException {
+		int n = 0;
+
+		try {
+			con = pool.getConnection();
+
+			String sql = "update reboard set name=?, pwd=?, title=?, email=?, content=? where no = ? and pwd = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, vo.getName());
+			ps.setString(2, vo.getPwd());
+			ps.setString(3, vo.getTitle());
+			ps.setString(4, vo.getEmail());
+			ps.setString(5, vo.getContent());
+			ps.setInt(6, vo.getNo());
+			ps.setString(7, vo.getPwd());
+
+			n = ps.executeUpdate();
+			System.out.println("글 수정 결과 n = " + n);
+			System.out.println("글 수정 입력값 vo = " + vo);
+		} finally {
+			pool.dbClose(ps, con);
+		}
+
+		return n;
+	}// updateReboard
+
+	// 답글까지 삭제하는 메서드
+	public int deleteReboard(int no) throws SQLException {
+		int cnt = 0;
+
+		try {
+			con = pool.getConnection();
+			
+			String sql = "update reboard set delflag = 'Y' where no = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, no);
+
+			cnt = ps.executeUpdate();
+			System.out.println("게시글 삭제 성공 cnt = " + cnt + ", 입력값 no = " + no);
+
+		} finally {
+			pool.dbClose(ps, con);
+		}
+
+		return cnt;
 	}// deleteReboard
+
+	// 답변 달기
+	public int reply(ReBoardVO vo) throws SQLException {
+		int n = 0;
+		try {
+			con = pool.getConnection();
+			con.setAutoCommit(false); // 자동 커밋이 안 되게 막는다
+
+			// insert 하기 전에 sortNo를 위한 자리 확보
+			String sql = "update reboard" + " set sortno = sortno + 1" + " where groupno = ? and sortno > ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, vo.getGroupNo());
+			ps.setInt(2, vo.getSortNo());
+			n = ps.executeUpdate();
+
+			// insert
+			sql = "insert into reboard(no, name, pwd, title, email, content, groupNo, step, sortNo) "
+					+ "values(reboard_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, vo.getName());
+			ps.setString(2, vo.getPwd());
+			ps.setString(3, vo.getTitle());
+			ps.setString(4, vo.getEmail());
+			ps.setString(5, vo.getContent());
+			ps.setInt(6, vo.getGroupNo());
+			ps.setInt(7, vo.getStep() + 1);
+			ps.setInt(8, vo.getSortNo() + 1);
+
+			n = ps.executeUpdate();
+			System.out.println("답변형 게시판 글쓰기 성공 n = " + n);
+			System.out.println("답변형 게시판 글쓰기 입력값 vo = " + vo);
+
+			con.commit();
+
+		} catch (SQLException e) {
+			System.out.println("답변형 게시판 글쓰기 실패!");
+			e.printStackTrace();
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		} finally {
+			try {
+				con.setAutoCommit(true);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			pool.dbClose(ps, con);
+		}
+
+		return n;
+	}// reply
+
+	public boolean checkPwd(int no, String pwd) throws SQLException {
+		boolean result = false;
+
+		try {
+			con = pool.getConnection();
+
+			String sql = "select pwd from reboard where no = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, no);
+
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				String dbPwd = rs.getString("pwd");
+				if (dbPwd.equals(pwd)) {
+					result = true;
+				}
+			}
+			System.out.println("비밀번호 조회, result = " + result + ", 입력값 no = " + no + ", pwd = " + pwd);
+		} finally {
+			pool.dbClose(rs, ps, con);
+		}
+
+		return result;
+	}// checkPwd
 
 }

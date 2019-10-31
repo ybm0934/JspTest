@@ -17,6 +17,13 @@ public class ReBoardVO {
 	private int step;
 	private int sortNo;
 	private String delFlag;
+	private String fileName;
+	private long fileSize;
+	private int downCount;
+	private String originalFileName;
+	private String ip;
+	private String port;
+	private String browser;
 
 	public int getNo() {
 		return no;
@@ -114,11 +121,69 @@ public class ReBoardVO {
 		this.delFlag = delFlag;
 	}
 
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public long getFileSize() {
+		return fileSize;
+	}
+
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
+	}
+
+	public int getDownCount() {
+		return downCount;
+	}
+
+	public void setDownCount(int downCount) {
+		this.downCount = downCount;
+	}
+
+	public String getOriginalFileName() {
+		return originalFileName;
+	}
+
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getPort() {
+		return port;
+	}
+
+	public void setPort(String port) {
+		this.port = port;
+	}
+
+	public String getBrowser() {
+		return browser;
+	}
+
+	public void setBrowser(String browser) {
+		this.browser = browser;
+	}
+
 	@Override
 	public String toString() {
 		return "ReBoardVO [no=" + no + ", name=" + name + ", pwd=" + pwd + ", title=" + title + ", email=" + email
 				+ ", regdate=" + regdate + ", readcount=" + readcount + ", content=" + content + ", groupNo=" + groupNo
-				+ ", step=" + step + ", sortNo=" + sortNo + ", delFlag=" + delFlag + "]";
+				+ ", step=" + step + ", sortNo=" + sortNo + ", delFlag=" + delFlag + ", fileName=" + fileName
+				+ ", fileSize=" + fileSize + ", downCount=" + downCount + ", originalFileName=" + originalFileName
+				+ ", ip=" + ip + ", port=" + port + ", browser=" + browser + "]";
 	}
 
 }

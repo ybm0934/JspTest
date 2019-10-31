@@ -34,6 +34,15 @@
 					<td><textarea spellcheck="false" name="content" class="textarea"></textarea></td>
 				</tr>
 				<tr>
+					<th>첨부파일</th>
+					<td>
+						<span class="file_spn">(최대 5MB)</span><br>
+						<input type="file" name="fileName"><br>
+						<input type="file" name="fileName2"><br>
+						<input type="file" name="fileName3">
+					</td>
+				</tr>
+				<tr>
 					<th colspan="2">
 						<input type="submit" class="btn regit" value="등록">
 						<input type="button" class="btn list" value="글목록" onclick="location.href='list.jsp'">

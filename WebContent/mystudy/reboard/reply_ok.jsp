@@ -12,6 +12,7 @@
 	String email = request.getParameter("email");
 	String content = request.getParameter("content");
 	
+	//답변형에 필요한 정보 hidden 필드 값
 	String groupNo = request.getParameter("groupNo");
 	String step = request.getParameter("step");
 	String sortNo = request.getParameter("sortNo");
@@ -28,7 +29,7 @@
 	
 	ReBoardDAO dao = new ReBoardDAO();
 	try{
-		int n = dao.insertReBoard(vo);
+		int n = dao.reply(vo);
 		if(n > 0){
 %>			
 		<script>

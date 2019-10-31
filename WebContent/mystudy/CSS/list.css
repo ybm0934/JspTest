@@ -28,6 +28,17 @@ table.list_tbl {
 	text-align: left;
 }
 
+.list_tbl td:nth-child(2) a {
+    color: gray;
+    text-decoration: none;
+}
+
+.list_tbl td:nth-child(2) a:hover {
+    color: red;
+    font-weight: bold;
+    padding-left: 3px;
+}
+
 .search_div {
 	text-align: center;
 	padding: 40px 0 40px 0;

@@ -17,7 +17,6 @@
 
 	String no = request.getParameter("no");
 	String title = request.getParameter("title");
-	
 	if((no == null || no.isEmpty()) || (title == null || title.isEmpty())){
 %>		
 	<script>
@@ -26,9 +25,10 @@
 	</script>	
 <%		
 	}
-
-	ReBoardVO vo = new ReBoardVO();
+	
+	
 	ReBoardDAO dao = new ReBoardDAO();
+	ReBoardVO vo = new ReBoardVO();
 
 	try {
 		vo = dao.selectByNo(Integer.parseInt(no));
@@ -37,7 +37,7 @@
 	}
 %>
 	<div class="write_div">
-		<h1>글쓰기</h1>
+		<h1>답변하기</h1>
 		<form action="reply_ok.jsp" name="frmWrite" method="post" onsubmit="return send()">
 		<input type="hidden" name="no" value="<%=no %>">
 		<input type="hidden" name="groupNo" value="<%=vo.getGroupNo() %>">

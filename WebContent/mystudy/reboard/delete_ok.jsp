@@ -1,13 +1,9 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="com.herbmall.board.model.ReBoardVO"%>
 <%@page import="com.herbmall.board.model.ReBoardDAO"%>
-<%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%
-	//delete.jsp에서 [삭제]버튼을 클릭하면 post방식으로 submit됨
-	//=> 파라미터들을 읽어와서 글 삭제하기
-	//1.
-	//post
 	request.setCharacterEncoding("UTF-8");
 	int no = Integer.parseInt(request.getParameter("no"));
 	String pwd = request.getParameter("pwd");

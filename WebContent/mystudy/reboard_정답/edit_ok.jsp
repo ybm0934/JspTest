@@ -27,7 +27,7 @@
 		vo.setPwd(pwd);
 		vo.setTitle(title);
 		vo.setNo(Integer.parseInt(no));
-		int cnt = dao.updateReBoard(vo);
+		int cnt = dao.updateReboard(vo);
 		
 		//3. 결과 처리
 		if(cnt>0){ %>

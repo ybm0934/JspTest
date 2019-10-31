@@ -38,8 +38,13 @@ minvalue 0
 nocache;
 
 
+
+
+
+
 --자료실 테이블
 DROP TABLE reboard CASCADE CONSTRAINT;
+
 CREATE TABLE reboard
 (
     no                  NUMBER PRIMARY KEY,                               --번호
@@ -54,14 +59,18 @@ CREATE TABLE reboard
     step                NUMBER DEFAULT 0,                              --글의 단계
     sortNo              NUMBER DEFAULT 0,                            --글의 정렬순서
     delFlag             CHAR DEFAULT 'N',                            --삭제 Flag
-    fileName            VARCHAR2 (50) NULL,                           --업로드파일명
+    fileName            CLOB NULL,                                    --업로드파일명
     fileSize            NUMBER DEFAULT 0,                              --파일사이즈
     downCount           NUMBER DEFAULT 0,                                --다운수
-    originalFileName    VARCHAR2 (50) NULL                         --원본 업로드파일명
+    originalFileName    CLOB NULL,                                 --원본 업로드파일명
+    ip                  VARCHAR2 (30) NULL,                            --아이피주소
+    port                VARCHAR2 (10) NULL,                             --포트번호
+    browser             CLOB NULL                                     --접속브라우저
 );
 
 --시퀀스
 DROP SEQUENCE reboard_seq;
+
 CREATE SEQUENCE reboard_seq INCREMENT BY 1 START WITH 0 MINVALUE 0 NOCACHE;
 
 
