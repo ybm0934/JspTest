@@ -12,7 +12,6 @@
 
 .detail_tbl th, .detail_tbl td {
 	border-top: 1px solid gray;
-	border-bottom: 1px solid gray;
 	padding: 10px;
 }
 
@@ -38,8 +37,22 @@
 }
 
 .content {
+	border-top: 1px solid gray;
 	border-bottom: 1px solid gray;
 	min-height: 400px;
 	padding: 25px;
 	line-height: 30px;
+}
+
+.downcnt {
+	color: red;
+}
+
+.down_td a {
+	color: gray;
+	text-decoration: none;
+}
+
+.down_td a:hover {
+	font-weight: bold;
 }

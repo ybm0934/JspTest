@@ -42,4 +42,33 @@ public class Utility {
 		return result;
 	}// displayNew
 
+	// 첨부파일이 있을 경우 파일 이미지 보여주기
+	public static String displayFile(String fileName) {
+		String result = "";
+		if (fileName != null) {
+			result = "<img src='../images/file.gif'>";
+		}
+
+		return result;
+	}// displayFile
+
+	// 첨부파일 크기 구하기
+	public static double displaySize(String fileName, double fileSize) {
+		double size = 0;
+		if (fileName != null && fileSize != 0) {
+			if (fileSize > (1024 * 1024)) {
+				size = Math.round((fileSize / (1024 * 1024) * 100)) / 100.0;
+				System.out.println(fileName + " 파일 크기 : " + size + " MB");
+			} else if (fileSize > 1024) {
+				size = Math.round((fileSize / 1024 * 100)) / 100.0;
+				System.out.println(fileName + " 파일 크기 : " + size + " KB");
+			} else {
+				size = fileSize;
+				System.out.println(fileName + " 파일 크기 : " + fileSize + " byte");
+			} // if
+		} // if
+
+		return size;
+	}// displaySize
+
 }

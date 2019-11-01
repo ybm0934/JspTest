@@ -11,7 +11,7 @@
 <body>
 	<div class="write_div">
 		<h1>글쓰기</h1>
-		<form action="write_ok.jsp" name="frmWrite" method="post" onsubmit="return send()">
+		<form action="write_ok.jsp" name="frmWrite" method="post" onsubmit="return send()" encType="multipart/form-data">
 			<table class="write_tbl">
 				<tr>
 					<th>제목</th>
@@ -37,9 +37,8 @@
 					<th>첨부파일</th>
 					<td>
 						<span class="file_spn">(최대 5MB)</span><br>
-						<input type="file" name="fileName"><br>
-						<input type="file" name="fileName2"><br>
-						<input type="file" name="fileName3">
+						<input type="file" name="fileName1"><br>
+						<input type="file" name="fileName2">
 					</td>
 				</tr>
 				<tr>

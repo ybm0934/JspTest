@@ -1,3 +1,4 @@
+<%@page import="com.herbmall.board.model.ReBoardDAO"%>
 <%@page import="java.io.File"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -70,6 +71,10 @@
 			if (file != null) {
 				out.println("크기 : " + file.length() + " byte<br><br>");
 			}
+			
+			if(original == null) continue; //2번째 파일이 null 값일시 그냥 패스 
+			new ReBoardDAO().fileUpload(fileName, original);
+			
 		} //while
 
 		//사용자가 입력한 요청 파라미터 읽어오기

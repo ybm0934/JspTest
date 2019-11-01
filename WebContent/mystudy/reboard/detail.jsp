@@ -20,6 +20,10 @@
 	
 	try{
 		rVo = rDao.selectByNo(Integer.parseInt(no));
+		
+		System.out.println("--------------");
+		System.out.println(rVo);
+		System.out.println("--------------");
 	}catch(SQLException e){
 		e.printStackTrace();
 	}
@@ -30,6 +34,7 @@
 	}else{
 		content = "";
 	}
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -62,6 +67,33 @@
 				<th>조회수</th>
 				<td><%=rVo.getReadcount() %></td>
 			</tr>
+			<tr>
+				<th rowspan="2">첨부파일</th>
+			<%
+				if(rVo.getFileName1() != null && !rVo.getFileName1().isEmpty()){
+			%>
+				<td class="down_td">
+					<a href="downCount.jsp?no=<%=no%>&fileName=<%=rVo.getFileName1()%>">
+						<%=Utility.displayFile(rVo.getFileName1())%>&nbsp;<%=rVo.getFileName1() %> (<%=rVo.getFileSize1() %>) KB
+					</a>
+					<span class="downcnt"> + <%=rVo.getDownCount1() %></span>
+				</td>
+			<%	}else { %>
+				<td rowspan="2"></td>
+			<%	} %>
+			</tr>
+			<tr>
+			<%	if(rVo.getFileName2() != null && !rVo.getFileName2().isEmpty()){ %>
+				<td class="down_td">
+					<a href="#">
+						<%=Utility.displayFile(rVo.getFileName2())%>&nbsp;<%=rVo.getFileName2() %> (<%=rVo.getFileSize2() %>) KB
+					</a>
+					<span class="downcnt"> + <%=rVo.getDownCount2() %></span>
+				</td>
+			<%	}else { %>
+				<td rowspan="2"></td>
+			<%	} %>
+			</tr>			
 		</table>
 		<div class="content"><%=content %></div>
 		<div class="redirect_div">
