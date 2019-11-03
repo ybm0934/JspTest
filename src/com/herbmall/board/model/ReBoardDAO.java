@@ -26,8 +26,8 @@ public class ReBoardDAO {
 		try {
 			con = pool.getConnection();
 
-			String sql = "insert into reboard(no, name, pwd, title, email, content, groupno, ip, port, browser, filename1, originalfilename1, filesize1, filename2, originalfilename2, filesize2)"
-					+ "values(reboard_seq.nextval, ?, ?, ?, ?, ?, reboard_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "insert into reboard(no, name, pwd, title, email, content, groupno, ip, port, browser)"
+					+ "values(reboard_seq.nextval, ?, ?, ?, ?, ?, reboard_seq.nextval, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, vo.getName());
 			ps.setString(2, vo.getPwd());
@@ -37,12 +37,6 @@ public class ReBoardDAO {
 			ps.setString(6, vo.getIp());
 			ps.setString(7, vo.getPort());
 			ps.setString(8, vo.getBrowser());
-			ps.setString(9, vo.getFileName1());
-			ps.setString(10, vo.getOriginalFileName1());
-			ps.setDouble(11, vo.getFileSize1());
-			ps.setString(12, vo.getFileName2());
-			ps.setString(13, vo.getOriginalFileName2());
-			ps.setDouble(14, vo.getFileSize2());
 
 			n = ps.executeUpdate();
 			System.out.println("게시판 글쓰기 n = " + n + "입력 값 vo = " + vo);
@@ -311,10 +305,29 @@ public class ReBoardDAO {
 
 		return result;
 	}// checkPwd
-	
-	public int fileUpload(String fileName, String original, double fileSize) {
-		
-	}
+
+	public int fileUpload(String fileName, String original, double fileSize, int no) throws SQLException {
+		int n = 0;
+
+		try {
+			con = pool.getConnection();
+
+			String sql = "update reboard set filename = ?, original = ?, filesize = ? where no = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, fileName);
+			ps.setString(2, original);
+			ps.setDouble(3, fileSize);
+			ps.setInt(4, no);
+
+			n = ps.executeUpdate();
+			System.out.println(
+					"파일 업로드 값 fileName = " + fileName + ", original = " + original + ", fileSize = " + fileSize);
+		} finally {
+			pool.dbClose(ps, con);
+		}
+
+		return n;
+	}// fileUpload
 
 	public int updateDownCount(int no, String fileName) throws SQLException {
 		int n = 0;

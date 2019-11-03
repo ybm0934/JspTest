@@ -61,20 +61,17 @@
 			//전송된 파일의 내용 타입
 			String type = mr.getContentType(name);
 
-			//전송된 파일 속성이 file인 태그의 name 속성 값을 이용해 파일 객체 생성
-			File file = mr.getFile(name);
 			out.println("파라미터 이름 : " + name + "<br>");
 			out.println("실제 파일 이름 : " + original + "<br>");
 			out.println("저장된 파일 이름 : " + filename + "<br>");
 			out.println("파일 타입 : " + type + "<br>");
+			
+			//전송된 파일 속성이 file인 태그의 name 속성 값을 이용해 파일 객체 생성
+			File file = mr.getFile(name);
 
 			if (file != null) {
 				out.println("크기 : " + file.length() + " byte<br><br>");
 			}
-			
-			if(original == null) continue; //2번째 파일이 null 값일시 그냥 패스 
-			new ReBoardDAO().fileUpload(fileName, original);
-			
 		} //while
 
 		//사용자가 입력한 요청 파라미터 읽어오기
