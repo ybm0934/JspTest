@@ -7,7 +7,7 @@
 	String no = request.getParameter("no");
 	if(no == null || no.isEmpty()){
 %>
-	<script>
+	<script type="text/javascript">
 		alert("잘못된 url 주소입니다.");
 		location.href="list.jsp";
 	</script>
@@ -21,9 +21,9 @@
 	try{
 		rVo = rDao.selectByNo(Integer.parseInt(no));
 		
-		System.out.println("--------------");
+		System.out.println("----------------------------------------------");
 		System.out.println(rVo);
-		System.out.println("--------------");
+		System.out.println("----------------------------------------------");
 	}catch(SQLException e){
 		e.printStackTrace();
 	}
@@ -33,6 +33,21 @@
 		content = content.replace("\r\n", "<br>");
 	}else{
 		content = "";
+	}
+	
+	double fileSize = 0;
+	if(rVo.getFileSize() != null && !rVo.getFileSize().isEmpty()){
+		//파일 사이즈 문자 제거 숫자만 추출
+		fileSize = Double.parseDouble(rVo.getFileSize().replaceAll("[^0-9]", ""));
+	}
+	
+	String fileInfo = "";
+	//파일이미지 + 파일명 (파일크기) + 다운수
+	if(rVo.getFileName() != null && !rVo.getFileName().isEmpty()){
+		//파일이 첨부된 경우에만
+		fileInfo = Utility.displayFile(rVo.getFileName()) + "&nbsp;";
+		fileInfo += rVo.getOriginalFileName() + "&nbsp;";
+		fileInfo += "(" + Utility.displaySize(rVo.getFileName(), fileSize) + ")";
 	}
 	
 %>
@@ -70,35 +85,21 @@
 			<tr>
 				<th rowspan="2">첨부파일</th>
 			<%
-				if(rVo.getFileName1() != null && !rVo.getFileName1().isEmpty()){
+				if(rVo.getFileName() != null && !rVo.getFileName().isEmpty()){
 			%>
 				<td class="down_td">
-					<a href="downCount.jsp?no=<%=no%>&fileName=<%=rVo.getFileName1()%>">
-						<%=Utility.displayFile(rVo.getFileName1())%>&nbsp;<%=rVo.getFileName1() %> (<%=rVo.getFileSize1() %>) KB
-					</a>
-					<span class="downcnt"> + <%=rVo.getDownCount1() %></span>
+					<a href="downCount.jsp?no=<%=no%>&fileName=<%=rVo.getFileName()%>"><%=fileInfo %></a>
+					<span class="downcnt"> + <%=rVo.getDownCount() %></span>
 				</td>
 			<%	}else { %>
 				<td rowspan="2"></td>
 			<%	} %>
-			</tr>
-			<tr>
-			<%	if(rVo.getFileName2() != null && !rVo.getFileName2().isEmpty()){ %>
-				<td class="down_td">
-					<a href="#">
-						<%=Utility.displayFile(rVo.getFileName2())%>&nbsp;<%=rVo.getFileName2() %> (<%=rVo.getFileSize2() %>) KB
-					</a>
-					<span class="downcnt"> + <%=rVo.getDownCount2() %></span>
-				</td>
-			<%	}else { %>
-				<td rowspan="2"></td>
-			<%	} %>
-			</tr>			
+			</tr>	
 		</table>
 		<div class="content"><%=content %></div>
 		<div class="redirect_div">
 			<a href="edit.jsp?no=<%=no%>">수정</a>&nbsp;|
-			<a href="delete.jsp?no=<%=no%>&step=<%=rVo.getStep()%>&groupNo=<%=rVo.getGroupNo()%>">삭제</a>&nbsp;|
+			<a href="delete.jsp?no=<%=no%>&step=<%=rVo.getStep()%>&groupNo=<%=rVo.getGroupNo()%>&fileName=<%=rVo.getFileName()%>">삭제</a>&nbsp;|
 			<a href="reply.jsp?no=<%=no%>&title=<%=rVo.getTitle()%>">답변</a>&nbsp;|
 			<a href="list.jsp">목록</a>
 		</div>

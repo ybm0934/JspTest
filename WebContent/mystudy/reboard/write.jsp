@@ -36,9 +36,7 @@
 				<tr>
 					<th>첨부파일</th>
 					<td>
-						<span class="file_spn">(최대 5MB)</span><br>
-						<input type="file" name="fileName1"><br>
-						<input type="file" name="fileName2">
+						<input type="file" name="fileName"><span class="file_spn">(최대 100MB)</span>
 					</td>
 				</tr>
 				<tr>

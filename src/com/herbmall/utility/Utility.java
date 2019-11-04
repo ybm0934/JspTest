@@ -53,19 +53,17 @@ public class Utility {
 	}// displayFile
 
 	// 첨부파일 크기 구하기
-	public static double displaySize(String fileName, double fileSize) {
-		double size = 0;
+	public static String displaySize(String fileName, double fileSize) {
+		String size = "0";
 		if (fileName != null && fileSize != 0) {
 			if (fileSize > (1024 * 1024)) {
-				size = Math.round((fileSize / (1024 * 1024) * 100)) / 100.0;
-				System.out.println(fileName + " 파일 크기 : " + size + " MB");
+				size = Double.toString((Math.round((fileSize / (1024 * 1024) * 100)) / 100.0)) + " MB";
 			} else if (fileSize > 1024) {
-				size = Math.round((fileSize / 1024 * 100)) / 100.0;
-				System.out.println(fileName + " 파일 크기 : " + size + " KB");
+				size = Double.toString(Math.round((fileSize / 1024 * 100)) / 100.0) + " KB";
 			} else {
-				size = fileSize;
-				System.out.println(fileName + " 파일 크기 : " + fileSize + " byte");
+				size = Double.toString(fileSize) + " byte";
 			} // if
+			System.out.println(fileName + " 파일 크기 : " + size);
 		} // if
 
 		return size;

@@ -13,6 +13,7 @@
 <body>
 	<form action="delete_ok.jsp" name="frmDelete" method="post" onsubmit="send()">
 	<input type="hidden" name="no" value="<%=request.getParameter("no") %>">
+	<input type="hidden" name="fileName" value="<%=request.getParameter("fileName") %>">
 		<fieldset>
 			<legend style="font-weight: bold;">비밀번호</legend>
 			<div class="pwd_div">

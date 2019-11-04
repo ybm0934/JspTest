@@ -1,0 +1,72 @@
+--권한 테이블
+DROP TABLE authority CASCADE CONSTRAINT;
+CREATE TABLE authority
+(
+    authCode    VARCHAR2 (30) PRIMARY KEY,                              --권한코드
+    authName    VARCHAR2 (100) NOT NULL,                                 --권한명
+    authDesc    VARCHAR2 (200) NULL,                                    --권한설명
+    regdate     DATE DEFAULT SYSDATE
+);
+INSERT INTO authority VALUES ('USER' ,'일반 사용자' , '', SYSDATE);
+INSERT INTO authority VALUES ('ADMIN' ,'관리자' , '', SYSDATE);
+
+
+--member 시퀀스
+DROP SEQUENCE member_seq;
+CREATE SEQUENCE member_seq START WITH 0 INCREMENT BY 1 MINVALUE 0 NOCYCLE;
+
+--member 테이블
+DROP TABLE MEMBER;
+CREATE TABLE MEMBER
+(
+    no               NUMBER PRIMARY KEY,
+    userid           VARCHAR2 (20) UNIQUE NOT NULL,
+    name             VARCHAR2 (20) NOT NULL,
+    pwd              VARCHAR2 (15) NOT NULL,
+    email            VARCHAR2 (50) NULL,
+    hp               VARCHAR2 (20) NULL,
+    hobby            VARCHAR2 (20) NULL,
+    gender           VARCHAR2 (10) NOT NULL,
+    zipcode          VARCHAR2 (5) NULL,
+    address          VARCHAR2 (200) NULL,
+    addressDetail    VARCHAR2 (50) NULL,
+    regdate          DATE DEFAULT SYSDATE,
+    mileage          NUMBER DEFAULT 0,
+    authCode         VARCHAR2 (30) DEFAULT 'USER' NOT NULL, --권한코드 ADMIN, USER
+    outdate          DATE NULL,                                         --탈퇴일자
+    CONSTRAINT member_fk1 FOREIGN KEY (authCode) REFERENCES authority (authCode)
+);
+
+
+--우편번호 테이블
+DROP TABLE zipcode CASCADE CONSTRAINT;
+CREATE TABLE zipcode
+(
+    zipcode       VARCHAR2 (5),
+    sido          VARCHAR2 (100),
+    gugun         VARCHAR2 (100),
+    dong          VARCHAR2 (200),
+    startbunji    VARCHAR2 (100),
+    endbunji      VARCHAR2 (100),
+    seq           NUMBER PRIMARY KEY
+);
+
+
+--도로명 주소 테이블
+DROP TABLE RoadNameZip;
+CREATE TABLE RoadNameZip
+(
+    roadNameCode       VARCHAR2 (12) NOT NULL,                        --도로명 코드
+    seq                NUMBER (10) NOT NULL PRIMARY KEY,                --일련번호
+    sido               VARCHAR2 (20) NULL,                                --시도
+    gugun              VARCHAR2 (20) NULL,                                --구군
+    roadName           VARCHAR2 (60) NULL,                               --도로명
+    buildNoMain        VARCHAR2 (5) NULL,                             --건물번호본번
+    buildNoSub         VARCHAR2 (5) NULL,                             --건물번호부번
+    buildName          VARCHAR2 (60) NULL,                               --건물명
+    detailBuildName    VARCHAR2 (60) NULL,                             --상세건물명
+    zipcode            VARCHAR2 (5) NOT NULL,                           --우편번호
+    regdate            DATE DEFAULT SYSDATE
+);
+
+

@@ -26,8 +26,8 @@ public class ReBoardDAO {
 		try {
 			con = pool.getConnection();
 
-			String sql = "insert into reboard(no, name, pwd, title, email, content, groupno, ip, port, browser)"
-					+ "values(reboard_seq.nextval, ?, ?, ?, ?, ?, reboard_seq.nextval, ?, ?, ?)";
+			String sql = "insert into reboard(no, name, pwd, title, email, content, groupno, ip, port, browser, filename, originalfilename, filesize)"
+					+ "values(reboard_seq.nextval, ?, ?, ?, ?, ?, reboard_seq.nextval, ?, ?, ?, ?, ?, ?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, vo.getName());
 			ps.setString(2, vo.getPwd());
@@ -37,6 +37,9 @@ public class ReBoardDAO {
 			ps.setString(6, vo.getIp());
 			ps.setString(7, vo.getPort());
 			ps.setString(8, vo.getBrowser());
+			ps.setString(9, vo.getFileName());
+			ps.setString(10, vo.getOriginalFileName());
+			ps.setString(11, vo.getFileSize());
 
 			n = ps.executeUpdate();
 			System.out.println("게시판 글쓰기 n = " + n + "입력 값 vo = " + vo);
@@ -74,6 +77,9 @@ public class ReBoardDAO {
 				int step = rs.getInt("step");
 				int sortNo = rs.getInt("sortno");
 				String delFlag = rs.getString("delflag");
+				String fileName = rs.getString("filename");
+				String original = rs.getString("originalfilename");
+				String fileSize = rs.getString("filesize");
 
 				ReBoardVO vo = new ReBoardVO();
 				vo.setNo(no);
@@ -85,6 +91,9 @@ public class ReBoardDAO {
 				vo.setStep(step);
 				vo.setSortNo(sortNo);
 				vo.setDelFlag(delFlag);
+				vo.setFileName(fileName);
+				vo.setOriginalFileName(original);
+				vo.setFileSize(fileSize);
 
 				list.add(vo);
 			}
@@ -123,14 +132,10 @@ public class ReBoardDAO {
 				int step = rs.getInt("step");
 				int sortNo = rs.getInt("sortNo");
 				String delFlag = rs.getString("delFlag");
-				String fileName1 = rs.getString("filename1");
-				String original1 = rs.getString("originalfilename1");
-				int downCount1 = rs.getInt("downcount1");
-				double fileSize1 = rs.getDouble("filesize1");
-				String fileName2 = rs.getString("filename2");
-				String original2 = rs.getString("originalfilename2");
-				double fileSize2 = rs.getDouble("filesize2");
-				int downCount2 = rs.getInt("downcount2");
+				String fileName = rs.getString("filename");
+				String original = rs.getString("originalfilename");
+				String fileSize = rs.getString("filesize");
+				int downCount = rs.getInt("downcount");
 
 				vo.setName(name);
 				vo.setPwd(pwd);
@@ -143,14 +148,11 @@ public class ReBoardDAO {
 				vo.setStep(step);
 				vo.setSortNo(sortNo);
 				vo.setDelFlag(delFlag);
-				vo.setFileName1(fileName1);
-				vo.setOriginalFileName1(original1);
-				vo.setDownCount1(downCount1);
-				vo.setFileSize1(fileSize1);
-				vo.setFileName2(fileName2);
-				vo.setOriginalFileName2(original2);
-				vo.setFileSize2(fileSize2);
-				vo.setDownCount2(downCount2);
+				vo.setFileName(fileName);
+				vo.setOriginalFileName(original);
+				vo.setFileSize(fileSize);
+				vo.setDownCount(downCount);
+
 			}
 
 			System.out.println("reboard 상세 조회 입력값 no = " + no);
@@ -186,15 +188,28 @@ public class ReBoardDAO {
 		try {
 			con = pool.getConnection();
 
-			String sql = "update reboard set name=?, pwd=?, title=?, email=?, content=? where no = ? and pwd = ?";
+			String sql = "update reboard set name=?, pwd=?, title=?, email=?, content=?";
+			if(vo.getFileName() != null && !vo.getFileName().isEmpty()) {
+				sql += ", filename=?, originalfilename=?, filesize=?";
+			}
+			sql += " where no = ? and pwd = ?";
+			
 			ps = con.prepareStatement(sql);
 			ps.setString(1, vo.getName());
 			ps.setString(2, vo.getPwd());
 			ps.setString(3, vo.getTitle());
 			ps.setString(4, vo.getEmail());
 			ps.setString(5, vo.getContent());
-			ps.setInt(6, vo.getNo());
-			ps.setString(7, vo.getPwd());
+			if(vo.getFileName() != null && !vo.getFileName().isEmpty()) {
+				ps.setString(6, vo.getFileName());
+				ps.setString(7, vo.getOriginalFileName());
+				ps.setString(8, vo.getFileSize());
+				ps.setInt(9, vo.getNo());
+				ps.setString(10, vo.getPwd());
+			}else {
+				ps.setInt(6, vo.getNo());
+				ps.setString(7, vo.getPwd());
+			}
 
 			n = ps.executeUpdate();
 			System.out.println("글 수정 결과 n = " + n);
@@ -213,7 +228,8 @@ public class ReBoardDAO {
 		try {
 			con = pool.getConnection();
 
-			String sql = "update reboard set delflag = 'Y' where no = ?";
+			//String sql = "update reboard set delflag = 'Y' where no = ?";
+			String sql = "delete from reboard where no = ?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, no);
 
@@ -305,19 +321,41 @@ public class ReBoardDAO {
 
 		return result;
 	}// checkPwd
-
-	public int fileUpload(String fileName, String original, double fileSize, int no) throws SQLException {
+	
+	public int updateDownCount(int no) throws SQLException {
 		int n = 0;
 
 		try {
 			con = pool.getConnection();
 
-			String sql = "update reboard set filename = ?, original = ?, filesize = ? where no = ?";
+			String sql = "update reboard set downcount = downcount + 1 where no = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, no);
+
+			n = ps.executeUpdate();
+			System.out.println("다운로드 결과 n = " + n + ", 입력 값 no = " + no);
+		} finally {
+			pool.dbClose(ps, con);
+		}
+
+		return n;
+	}// updateDownCount
+
+/*	
+	public int fileUpload(String fileName, String original, String fileSize) throws SQLException {
+		int n = 0;
+
+		try {
+			con = pool.getConnection();
+
+			// insert가 무사히 성공해야 실행할 수 있음
+			String sql = "update reboard set filename = ?, originalfilename = ?, filesize = ? where filename = ?";
+			// where절에는 CLOB 타입이 들어갈 수 없다
 			ps = con.prepareStatement(sql);
 			ps.setString(1, fileName);
 			ps.setString(2, original);
-			ps.setDouble(3, fileSize);
-			ps.setInt(4, no);
+			ps.setString(3, fileSize);
+			ps.setString(4, fileName); // 서버에 저장된 파일이름(중복 제거된 파일이름)이 같은 데이터를 불러오기
 
 			n = ps.executeUpdate();
 			System.out.println(
@@ -329,23 +367,25 @@ public class ReBoardDAO {
 		return n;
 	}// fileUpload
 
-	public int updateDownCount(int no, String fileName) throws SQLException {
+	
+	// 허용되지 않은 확장자의 파일이 올라올 경우 글 삭제
+	public int fileDelete(String fileName) throws SQLException {
 		int n = 0;
-
 		try {
 			con = pool.getConnection();
 
-			String sql = "update reboard set downcount1 = downcount1 + 1 where no = ?";
+			String sql = "delete from reboard where filename = ?";
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, no);
+			ps.setString(1, fileName);
 
 			n = ps.executeUpdate();
-			System.out.println("다운로드 결과 n = " + n + ", 입력 값 no = " + no + ", fileName = " + fileName);
+			System.out.println("허용되지 않은 확장자 파일 삭제 fileName = " + fileName);
 		} finally {
 			pool.dbClose(ps, con);
 		}
-
+		
 		return n;
-	}// updateDownCount
+	}// fileDelete
+*/
 
 }

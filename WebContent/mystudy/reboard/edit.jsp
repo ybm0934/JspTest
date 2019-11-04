@@ -1,3 +1,4 @@
+<%@page import="com.herbmall.utility.Utility"%>
 <%@page import="com.herbmall.board.model.ReBoardVO"%>
 <%@page import="com.herbmall.board.model.ReBoardDAO"%>
 <%@page import="java.sql.SQLException"%>
@@ -29,6 +30,23 @@
 	String email = vo.getEmail();
 	if(content == null) content = "";
 	if(email == null) email = "";
+	
+	double fileSize = 0;
+	if(vo.getFileSize() != null && !vo.getFileSize().isEmpty()){
+		//파일 사이즈 문자 제거 숫자만 추출
+		fileSize = Double.parseDouble(vo.getFileSize().replaceAll("[^0-9]", ""));
+	}
+	
+	String fileInfo = "";
+	//파일이미지 + 파일명 (파일크기) + 다운수
+	if(vo.getFileName() != null && !vo.getFileName().isEmpty()){
+		//파일이 첨부된 경우에만
+		fileInfo = Utility.displayFile(vo.getFileName()) + "&nbsp;";
+		fileInfo += vo.getOriginalFileName() + "&nbsp;";
+		fileInfo += "(" + Utility.displaySize(vo.getFileName(), fileSize) + ")<br>";
+		fileInfo += "<span class='file_spn'>첨부파일을 새로 지정할 경우 기존 파일은 삭제됩니다.</span>";
+	}
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -41,8 +59,9 @@
 <body>
 <div class="write_div">
 	<h1>글쓰기</h1>
-	<form action="edit_ok.jsp" name="frmWrite" method="post" onsubmit="return send()">
+	<form action="edit_ok.jsp" name="frmWrite" method="post" onsubmit="return send()"  encType="multipart/form-data">
 	<input type="hidden" name="no" value="<%=no%>">
+	<input type="hidden" name="oldFileName" value="<%=vo.getFileName() %>">
 		<table class="write_tbl">
 			<tr>
 				<th>제목</th>
@@ -59,6 +78,14 @@
 			<tr>
 				<th>이메일</th>
 				<td><input type="text" name="email" class="text" spellcheck="false" value="<%=email%>"></td>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<td><input type="file" name="fileName"><span class="file_spn">(최대 100MB)</span></td>
+			</tr>
+			<tr>
+				<th>첨부파일 목록</th>
+				<td><span class="fileInfo"><%=fileInfo %></span></td>
 			</tr>
 			<tr>
 				<th>내용</th>

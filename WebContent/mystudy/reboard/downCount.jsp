@@ -8,11 +8,11 @@
 <%
 	//다운로드 처리 및 다운로드 수 증가시키기
 	int no = Integer.parseInt(request.getParameter("no"));
-	String fileName = request.getParameter("fileName"); //fileName1만 증가. fileName2까지는 내 선에서 구현 어려움
+	String fileName = request.getParameter("fileName");
 
 	ReBoardDAO dao = new ReBoardDAO();
 
-	int n = dao.updateDownCount(no, fileName);
+	int n = dao.updateDownCount(no);
 
 	String path = "D:\\Workspace-java\\ex\\WebContent\\mystudy\\upload";
 
@@ -33,13 +33,14 @@
 		//cache 막기
 		response.setHeader("Expires", "-1");
 
+		//이미 존재하는 out 객체를 clear하여 바이트 기반 스트림 작업의 충돌 방지
 		out.clear();
 		out = pageContext.pushBody();
 
 		byte[] data = new byte[1024 * 1024];
 		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
 		BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
-
+		
 		int count = 0;
 		while ((count = bis.read(data)) != -1) {
 			bos.write(data);

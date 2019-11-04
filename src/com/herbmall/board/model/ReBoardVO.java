@@ -20,14 +20,10 @@ public class ReBoardVO {
 	private String browser;
 
 	// 자료실
-	private String fileName1;
-	private String originalFileName1;
-	private double fileSize1;
-	private int downCount1;
-	private String fileName2;
-	private String originalFileName2;
-	private double fileSize2;
-	private int downCount2;
+	private String fileName;
+	private String originalFileName;
+	private String fileSize;
+	private int downCount;
 
 	public int getNo() {
 		return no;
@@ -149,68 +145,36 @@ public class ReBoardVO {
 		this.browser = browser;
 	}
 
-	public String getFileName1() {
-		return fileName1;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setFileName1(String fileName1) {
-		this.fileName1 = fileName1;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
-	public String getOriginalFileName1() {
-		return originalFileName1;
+	public String getOriginalFileName() {
+		return originalFileName;
 	}
 
-	public void setOriginalFileName1(String originalFileName1) {
-		this.originalFileName1 = originalFileName1;
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
 	}
 
-	public double getFileSize1() {
-		return fileSize1;
+	public String getFileSize() {
+		return fileSize;
 	}
 
-	public void setFileSize1(double fileSize1) {
-		this.fileSize1 = fileSize1;
+	public void setFileSize(String fileSize) {
+		this.fileSize = fileSize;
 	}
 
-	public int getDownCount1() {
-		return downCount1;
+	public int getDownCount() {
+		return downCount;
 	}
 
-	public void setDownCount1(int downCount1) {
-		this.downCount1 = downCount1;
-	}
-
-	public String getFileName2() {
-		return fileName2;
-	}
-
-	public void setFileName2(String fileName2) {
-		this.fileName2 = fileName2;
-	}
-
-	public String getOriginalFileName2() {
-		return originalFileName2;
-	}
-
-	public void setOriginalFileName2(String originalFileName2) {
-		this.originalFileName2 = originalFileName2;
-	}
-
-	public double getFileSize2() {
-		return fileSize2;
-	}
-
-	public void setFileSize2(double fileSize2) {
-		this.fileSize2 = fileSize2;
-	}
-
-	public int getDownCount2() {
-		return downCount2;
-	}
-
-	public void setDownCount2(int downCount2) {
-		this.downCount2 = downCount2;
+	public void setDownCount(int downCount) {
+		this.downCount = downCount;
 	}
 
 	@Override
@@ -218,10 +182,8 @@ public class ReBoardVO {
 		return "ReBoardVO [no=" + no + ", name=" + name + ", pwd=" + pwd + ", title=" + title + ", email=" + email
 				+ ", regdate=" + regdate + ", readcount=" + readcount + ", content=" + content + ", groupNo=" + groupNo
 				+ ", step=" + step + ", sortNo=" + sortNo + ", delFlag=" + delFlag + ", ip=" + ip + ", port=" + port
-				+ ", browser=" + browser + ", fileName1=" + fileName1 + ", originalFileName1=" + originalFileName1
-				+ ", fileSize1=" + fileSize1 + ", downCount1=" + downCount1 + ", fileName2=" + fileName2
-				+ ", originalFileName2=" + originalFileName2 + ", fileSize2=" + fileSize2 + ", downCount2=" + downCount2
-				+ "]";
+				+ ", browser=" + browser + ", fileName=" + fileName + ", originalFileName=" + originalFileName
+				+ ", fileSize=" + fileSize + ", downCount=" + downCount + "]";
 	}
 
 }

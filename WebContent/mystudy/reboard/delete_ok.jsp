@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="com.herbmall.board.model.ReBoardVO"%>
 <%@page import="com.herbmall.board.model.ReBoardDAO"%>
@@ -7,6 +8,7 @@
 	request.setCharacterEncoding("UTF-8");
 	int no = Integer.parseInt(request.getParameter("no"));
 	String pwd = request.getParameter("pwd");
+	String fileName = request.getParameter("fileName");
 
 	ReBoardDAO dao = new ReBoardDAO();
 	int result = 0;
@@ -14,6 +16,13 @@
 		if(dao.checkPwd(no, pwd)){
 			result = dao.deleteReboard(no);
 			if(result > 0){
+				//파일관련 처리
+				String path = "D:\\Workspace-java\\ex\\WebContent\\mystudy\\upload";
+				File file = new File(path, fileName);
+				//기존 파일이 있으면 파일 삭제
+				if(file.exists()){
+					file.delete();
+				}
 %>
 			<script>
 				alert("글 삭제 성공!");

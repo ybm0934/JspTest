@@ -26,7 +26,6 @@
 <%		
 	}
 	
-	
 	ReBoardDAO dao = new ReBoardDAO();
 	ReBoardVO vo = new ReBoardVO();
 

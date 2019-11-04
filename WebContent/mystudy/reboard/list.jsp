@@ -101,6 +101,7 @@
 				<span style="color:silver; font-style:oblique;">삭제된 글입니다.</span>
 			<%}else { %>
 				<%=Utility.displayRe(vo.getStep()) %>
+				<%=Utility.displayFile(vo.getFileName())%>
 				<a href="countUpdate.jsp?no=<%=vo.getNo()%>"><%=Utility.cutString(vo.getTitle(), 15) %></a>
 				<%=Utility.displayNew(vo.getRegdate()) %>
 			<%} %>

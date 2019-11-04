@@ -1,0 +1,73 @@
+--테이블스페이스 생성
+create tablespace herbmall
+datafile 'D:\Workspace-oracle\herbmall.dbf' size 48m
+extent management local
+uniform size 64k
+segment space management auto;
+
+--유저의 default 테이블스페이스 변경
+alter user herb default tablespace herbmall;
+
+--권한 부여
+grant connect, resource to herb;
+
+--뷰 생성 권한 부여
+grant create view to herb;
+
+--board 테이블 생성
+drop table board;
+create table board
+(
+no number primary key, --번호
+name varchar2(20) not null, --이름
+pwd varchar2(20) not null, --비밀번호
+title varchar2(100) not null, --제목
+email varchar2(80) null, --이메일
+regdate date default sysdate, --작성일
+--regip varchar2(15) null, --작성IP
+readcount number default 0 null, --조회수
+content clob null --내용
+);
+
+--sequence 생성
+drop sequence board_seq;
+create sequence board_seq
+increment by 1
+start with 0
+minvalue 0
+nocache;
+
+
+------------------------------------------------------------------------------------------------
+
+
+--reboard 시퀀스
+DROP SEQUENCE reboard_seq;
+CREATE SEQUENCE reboard_seq INCREMENT BY 1 START WITH 0 MINVALUE 0 NOCACHE;
+
+--reboard 테이블
+DROP TABLE reboard CASCADE CONSTRAINT;
+CREATE TABLE reboard
+(
+    no                  NUMBER PRIMARY KEY,                               --번호
+    name                VARCHAR2 (20) NOT NULL,                           --이름
+    pwd                 VARCHAR2 (20) NOT NULL,                         --비밀번호
+    title               VARCHAR2 (90) NOT NULL,                           --제목
+    email               VARCHAR2 (90) NULL,                              --이메일
+    regdate             DATE DEFAULT SYSDATE,                            --작성일
+    readcount           NUMBER DEFAULT 0 NULL,                           --조회수
+    content             CLOB NULL,                                        --내용
+    groupNo             NUMBER DEFAULT 0,                               --그룹번호
+    step                NUMBER DEFAULT 0,                              --글의 단계
+    sortNo              NUMBER DEFAULT 0,                            --글의 정렬순서
+    delFlag             CHAR DEFAULT 'N',                            --삭제 Flag
+    ip                  VARCHAR2 (30) NULL,                            --아이피주소
+    port                VARCHAR2 (10) NULL,                             --포트번호
+    browser             CLOB NULL,                                    --접속브라우저
+    fileName            VARCHAR2 (500) NULL,                         --업로드 파일명
+    originalFileName    VARCHAR2 (500) NULL,                          --원본 파일명
+    fileSize            VARCHAR2 (10) DEFAULT 0,                       --파일사이즈
+    downCount           NUMBER DEFAULT 0                                 --다운수
+);
+
+
