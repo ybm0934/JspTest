@@ -21,7 +21,7 @@
 %>		
 	<script>
 		alert("잘못된 접근입니다.");
-		location.href="/mystudy/board/list.jsp";
+		location.href="<%=request.getContextPath() %>/mystudy/reboard/list.jsp";
 	</script>	
 <%		
 	}

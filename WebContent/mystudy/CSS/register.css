@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.reg_div {
+	width: 700px;
+	margin: 0 auto;
+}
+
+.reg_tbl {
+	border-top: 2px solid gray;
+	border-collapse: collapse;
+}
+
+.reg_tbl th:last-child {
+	border-bottom: 2px solid gray;
+}
+
+.reg_tbl th, .reg_tbl td {
+	border-bottom: 1px solid gainsboro;
+	padding: 13px;
+}
+
+#address1, #address2 {
+	outline: none;
+}
+
+#address2, #address3 {
+	width: 80%;
+	margin: 10px 0 5px 0;
+}
+
+.reg_btn {
+	border: 1px solid black;
+	background-color: black;
+	color: white;
+	width: 100px;
+	height: 30px;
+	outline: none;
+	cursor: pointer;
+}
+
+select#phone1 {
+	width: 85px;
+}
+
+select#email2 {
+	width: 110px;
+}
