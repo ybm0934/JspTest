@@ -151,10 +151,12 @@ public class MemberDAO {
 			con = pool.getConnection();
 
 			String sql = "select * from zipcode";
-			if(dong != null && !dong.isEmpty()) {
+
+			if (dong != null && !dong.isEmpty()) {
 				sql += " where dong like '%" + dong + "%'";
 			}
 			sql += " order by seq asc";
+
 			ps = con.prepareStatement(sql);
 
 			rs = ps.executeQuery();
@@ -180,7 +182,6 @@ public class MemberDAO {
 			}
 
 			System.out.println("우편번호 불러오기 list.size() = " + list.size() + ", dong = " + dong);
-
 		} finally {
 			pool.dbClose(rs, ps, con);
 		}

@@ -54,7 +54,7 @@
 		});
 		
 		$("#srch_zip").click(function(){
-			window.open("../common/zipcode.jsp", "zip", "top=10, left=10, width=500, height=500, scrollbars=yes, resizable=yes");
+			window.open("../common/zipcode.jsp?dong=주소", "zip", "top=10, left=10, width=500, height=500, scrollbars=yes, resizable=yes");
 		});
 
 		//직접 입력을 선택하면 email3 텍스트 상자가 보이게

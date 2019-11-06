@@ -18,7 +18,8 @@ public class ConnectionPoolMgr {
 	}
 
 	public Connection getConnection() throws SQLException {
-		String url = "jdbc:oracle:thin:@192.168.6.166:1521:orcl";
+		//String url = "jdbc:oracle:thin:@192.168.6.166:1521:orcl";
+		String url = "jdbc:oracle:thin:@192.168.123.7:1521:xe";
 		String uid = "herb";
 		String upw = "herb123";
 		Connection con = DriverManager.getConnection(url, uid, upw);

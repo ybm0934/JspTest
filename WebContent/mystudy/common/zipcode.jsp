@@ -8,7 +8,10 @@
 	request.setCharacterEncoding("UTF-8");
 	
 	String dong = request.getParameter("dong");
+	System.out.println("dong : " + dong);
+	
 	if(dong == null) dong = "";
+	System.out.println("dong2 : " + dong);
 	
 	MemberDAO dao = new MemberDAO();
 	
@@ -19,6 +22,7 @@
 			System.out.println("list.size() = " + list.size());
 		}
 	}catch(SQLException e){
+	System.out.println("dong3 : " + dong);
 		e.printStackTrace();
 	}
 %>
@@ -77,7 +81,7 @@
 	<p>찾고 싶으신 주소의 동(읍/면)을 입력하세요</p>
 	<form name="frmZipcode" method="post" action="zipcode.jsp">
 		<label for="dong">지역명 : </label>
-		<input type="text" name="dong" id="dong" value="<%=dong %>" style="ime-mode: active">
+		<input type="text" name="dong" id="dong" style="ime-mode: active">
 		<!-- ime-mode:active는 기본으로 한글모드(한/영 변경 방지용). IE에서만 작동 -->
 		<input type="submit" id="submit_btn" value="찾기">
 	</form>
@@ -120,5 +124,8 @@
 			<% }//if %>
 		</tbody>
 	</table>
+	<div class="zip_page">
+		
+	</div>
 </body>
 </html>
