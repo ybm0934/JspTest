@@ -1,0 +1,17 @@
+Toad실행
+
+Database → import → Import Table Data 선택
+
+테이블 선택 후 Next
+
+.txt 선택 → File에서 '지번.txt'파일 불러온 후 Next
+
+Delimiter를 Tab으로 선택 → Trip Spaces를 both로 선택 후 Next
+
+First Row를 2로 변경 후 Next
+
+Error 없이 컬럼에 잘 들어갔는지 확인 후 Next
+
+Primary key는 seq로 선택 후 Next
+
+Excute 실행

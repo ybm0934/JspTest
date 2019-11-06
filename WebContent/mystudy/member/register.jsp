@@ -44,17 +44,9 @@
 				alert("전화번호는 숫자만 가능합니다.");
 				$("#phone2").focus();
 				event.preventDefault();
-			}else if($("#phone2").val() == ""){
-				alert("핸드폰 번호를 입력하세요.");
-				$("#phone2").focus();
-				return false;
-			}else if($("#phone3").val() == ""){
-				alert("핸드폰 번호를 입력하세요.");
-				$("#phone3").focus();
-				return false;
 			}
 		});
-		
+
 		//아이디 중복확인 창 띄우기
 		$("#id_ck").click(function(){
 			var id = $("#id").val();
@@ -64,7 +56,7 @@
 		$("#srch_zip").click(function(){
 			window.open("../common/zipcode.jsp", "zip", "top=10, left=10, width=500, height=500, scrollbars=yes, resizable=yes");
 		});
-		
+
 		//직접 입력을 선택하면 email3 텍스트 상자가 보이게
 		$("#email2").change(function(){
 			if($("#email2").val() == "etc"){
@@ -77,7 +69,7 @@
 		});
 		
 		function validate_phoneno(ph){
-			var pattern = new RegExp(/^[0-9]*&/g);
+			var pattern = new RegExp(/^[0-9]*$/g);
 			return pattern.test(ph);	//정규식과 일치하면 true
 			/* 정규식 /^[0-9]*$/g
 			0 에서 9사이의 숫자로 시작하거나 끝나야 한다는 의미 (^는 시작, $는 끝을 의미)
@@ -105,6 +97,17 @@
 				<tr>
 					<th>성명</th>
 					<td><input type="text" name="name" id="name"></td>
+				<tr>
+				<tr>
+					<th>성별</th>
+					<td>
+						<label for="gender1">
+							<input type="radio" name="gender" id="gender1" value="남자">남자
+						</label>
+						<label for="gender2">
+							<input type="radio" name="gender" id="gender2" value="여자">여자
+						</label>
+					</td>
 				<tr>
 				<tr>
 					<th>회원ID</th>

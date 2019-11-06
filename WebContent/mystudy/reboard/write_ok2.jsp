@@ -101,7 +101,7 @@
 				File file = mr.getFile(fname);
 				
 				//전송된 파일의 크기
-				double fileSize = Utility.displaySize(fileName, file.length());
+				String fileSize = Utility.displaySize(fileName, (double) file.length());
 				
 				//확장자가 정해진 것 외의 파일이 업로드 되는 것 방지(보안성 강화 코딩)
 				int n = 0;
@@ -109,7 +109,7 @@
 						&& !original.endsWith(".txt")) {
 					file = new File(realFolder + original);
 					file.delete();
-					n = dao.fileDelete(fileName);	//작동 안됨. 다중 파일 업로드 구현 실패
+					//n = dao.fileDelete(fileName);	//작동 안됨. 다중 파일 업로드 구현 실패
 					System.out.println("&&&&&&&&&&n  = " + n);
 				%>
 				<script type="text/javascript">
@@ -118,7 +118,7 @@
 				</script>
 				<%
 				} else {
-					n = dao.fileUpload(fileName, original, fileSize);	//작동 안됨. 다중 파일 업로드 구현 실패
+					//n = dao.fileUpload(fileName, original, fileSize);	//작동 안됨. 다중 파일 업로드 구현 실패
 					System.out.println("@@@@@@@@@@@@n  = " + n);
 				}//if
 		

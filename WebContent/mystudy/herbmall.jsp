@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
-<title>Insert title here</title>
+<title>허브몰</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/mystudy/CSS/mainstyle.css"/>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/mystudy/CSS/clear.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/mystudy/CSS/layout.css" />

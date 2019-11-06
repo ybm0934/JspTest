@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>채용 사이트</title>
+<title>HR_BLOCK</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/hr_block/hr_css/main.css">
 </head>
 <body>

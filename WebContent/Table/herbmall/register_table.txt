@@ -25,7 +25,6 @@ CREATE TABLE MEMBER
     pwd              VARCHAR2 (15) NOT NULL,
     email            VARCHAR2 (50) NULL,
     hp               VARCHAR2 (20) NULL,
-    hobby            VARCHAR2 (20) NULL,
     gender           VARCHAR2 (10) NOT NULL,
     zipcode          VARCHAR2 (5) NULL,
     address          VARCHAR2 (200) NULL,
