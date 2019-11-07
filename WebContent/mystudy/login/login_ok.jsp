@@ -7,7 +7,7 @@
 
 	String userid = request.getParameter("userid");
 	String pwd = request.getParameter("pwd");
-
+	
 	MemberDAO dao = new MemberDAO();
 
 	int n = 0;
@@ -20,7 +20,7 @@
 			msg = "로그인 성공!";
 
 			session.setAttribute("id", userid); //세션 설정
-			session.setMaxInactiveInterval(10); //세션 시간 10초
+			session.setMaxInactiveInterval(5 * 60); //세션 시간 5분
 			
 			//Cookie ck = new Cookie("id", userid);	//쿠키 설정
 			//ck.setMaxAge(10);	//쿠키 시간 10초

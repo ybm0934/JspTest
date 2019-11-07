@@ -13,14 +13,15 @@
 	String searchCondition = request.getParameter("searchCondition");
 	String searchKeyword = request.getParameter("searchKeyword");
 	
+	if(searchCondition == null) searchCondition = "";
+	if(searchKeyword == null) searchKeyword = "";
+	
 	//2. db작업 - select
 	ReBoardDAO dao = new ReBoardDAO();
 	List<ReBoardVO> list = new ArrayList<ReBoardVO>();
 	
 	try{
-		 list = dao.selectAll(searchCondition, searchKeyword);
-		 System.out.println("입력 값 searchCondition : " + searchCondition);
-		 System.out.println("입력 값 searchKeyword : " + searchKeyword);
+		list = dao.selectAll(searchCondition, searchKeyword);
 	}catch(SQLException e){
 		e.printStackTrace();
 	}
@@ -115,7 +116,9 @@
 	</table>
 	<div class="page_div">
 		<%if(firstPage > 1){ %>
-			<a href="list.jsp?currentPage=<%=firstPage-1%>"><img alt="이전블록으로 이동" src="../images/first.JPG"></a>
+			<a href="list.jsp?currentPage=<%=firstPage-1 %>&searchKeyword=<%=searchKeyword %>&searchCondition=<%=searchCondition %>">
+				<img alt="이전블록으로 이동" src="../images/first.JPG">
+			</a>
 		<%} %>
 		
 		<%
@@ -123,14 +126,16 @@
 				if(i > totalPage) break;
 				
 				if(i == currentPage){	%>
-				<span style="color: blue;font-weight: bold; font-size:1.0em;"><%=i %></span>						
+				<span style="color: blue; font-weight: bold; font-size:1.0em;"><%=i %></span>
 			<%	}else { %>
-				<a href="list.jsp?currentPage=<%=i %>"><%=i %></a>
+				<a href="list.jsp?currentPage=<%=i %>&searchKeyword=<%=searchKeyword %>&searchCondition=<%=searchCondition %>"><%=i %></a>
 			<%	}//if	%>
 		<%	}//for	%>
 		
 		<%if(lastPage < totalPage){ %>
-			<a href="list.jsp?currentPage=<%=lastPage+1%>"><img alt="다음블록으로 이동" src="../images/last.JPG"></a>
+			<a href="list.jsp?currentPage=<%=lastPage+1 %>&searchKeyword=<%=searchKeyword %>&searchCondition=<%=searchCondition %>">
+				<img alt="다음블록으로 이동" src="../images/last.JPG">
+			</a>
 		<%} %>
 	</div>
 	<div class="search_div">

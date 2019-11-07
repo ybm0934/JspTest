@@ -50,11 +50,11 @@
 		//아이디 중복확인 창 띄우기
 		$("#id_ck").click(function(){
 			var id = $("#id").val();
-			window.open("checkUserid.jsp?id=" + id, "chk", "top=20, left=20, width=300, height=400, scrollbars=yes, resizable=yes");
+			window.open("checkUserid.jsp", "chk", "top=20, left=20, width=500, height=400, scrollbars=yes, resizable=yes");
 		});
 		
 		$("#srch_zip").click(function(){
-			window.open("../common/zipcode.jsp?dong=주소", "zip", "top=10, left=10, width=500, height=500, scrollbars=yes, resizable=yes");
+			window.open("../common/zipcode.jsp", "zip", "top=10, left=10, width=500, height=500, scrollbars=yes, resizable=yes");
 		});
 
 		//직접 입력을 선택하면 email3 텍스트 상자가 보이게
@@ -86,6 +86,12 @@
 			닫기 대괄호(]) 뒤의 + 기호는 이 패턴이 한 번 또는 그 이상 반복된다는 의미
 			*/
 		}
+		
+		$("#reg_back").click(function(){
+			if(confirm("정말 취소하시겠습니까?")){
+				location.href = "../main.jsp";
+			}
+		});
 	});
 </script>
 </head>
@@ -162,7 +168,10 @@
 					</td>
 				<tr>
 				<tr>
-					<th colspan="2"><input type="submit" name="reg_sub" id="reg_sub" class="reg_btn" value="회원가입"></th>
+					<th colspan="2">
+						<input type="submit" name="reg_sub" id="reg_sub" class="reg_btn" value="회원가입">
+						<input type="button" name="reg_back" id="reg_back" value="취소">
+					</th>
 				<tr>
 			</table>
 		</form>

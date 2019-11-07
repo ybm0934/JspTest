@@ -31,8 +31,11 @@ public class MemberDAO {
 
 		try {
 			con = pool.getConnection();
-
-			String sql = "select userid from member where userid = ?";
+			
+			String sql = "";
+			if(userid != null && !userid.isEmpty()) {
+				sql = "select userid from member where userid = ?";
+			}
 			ps = con.prepareStatement(sql);
 			ps.setString(1, userid);
 
@@ -155,11 +158,13 @@ public class MemberDAO {
 			if (dong != null && !dong.isEmpty()) {
 				sql += " where dong like '%" + dong + "%'";
 			}
+
 			sql += " order by seq asc";
 
 			ps = con.prepareStatement(sql);
 
 			rs = ps.executeQuery();
+
 			while (rs.next()) {
 				int seq = rs.getInt("seq");
 				String zipcode = rs.getString("zipcode");

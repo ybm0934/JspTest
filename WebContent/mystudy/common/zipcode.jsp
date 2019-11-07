@@ -1,30 +1,46 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.herbmall.register.model.MemberDAO"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="com.herbmall.register.model.ZipcodeVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
-	
+
 	String dong = request.getParameter("dong");
-	System.out.println("dong : " + dong);
-	
-	if(dong == null) dong = "";
-	System.out.println("dong2 : " + dong);
-	
+
+	if (dong == null) dong = "";
+
 	MemberDAO dao = new MemberDAO();
+	List<ZipcodeVO> list = new ArrayList<ZipcodeVO>();
 	
-	List<ZipcodeVO> list = null;
-	try{
-		if(dong != null && !dong.isEmpty()){
+	try {
+		if (dong != null && !dong.isEmpty()) {
 			list = dao.selectZipcode(dong);
-			System.out.println("list.size() = " + list.size());
 		}
-	}catch(SQLException e){
-	System.out.println("dong3 : " + dong);
+	} catch (SQLException e) {
 		e.printStackTrace();
 	}
+	
+	//페이징 처리
+	String sCurPage = request.getParameter("currentPage");
+	System.out.println("sCurPage = " + sCurPage);
+	
+	int currentPage = 1;
+	if(sCurPage != null && !sCurPage.isEmpty()){
+		currentPage = Integer.parseInt(sCurPage);
+	}
+	
+	int totalRecord = list.size();
+	int pageSize = 5;
+	int totalPage = (int) Math.ceil((double) totalRecord / pageSize);
+	int blockSize = 10;
+	int firstPage = currentPage - ((currentPage - 1) % blockSize);
+	int lastPage = firstPage + (blockSize - 1);
+	int curPos = (currentPage - 1) * pageSize;
+	int num = totalRecord - curPos;
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -53,6 +69,22 @@
 .zipcode_tbl td a:hover {
 	color: black;
 	text-decoration: underline;
+}
+
+.zip_page {
+	width: 470px;
+	text-align: center;
+	margin-top: 18px;
+}
+
+.zip_page_a {
+	text-decoration: none;
+	color: gray;
+	padding: 5px;
+}
+
+.zip_page_a:hover {
+	font-weight: bold;
 }
 </style>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-3.4.1.min.js"></script>
@@ -98,34 +130,53 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% if(list.isEmpty()){ %>
+			<% if(list == null || list.isEmpty()){ %>
 			<tr>
 				<td colspan="2" style="text-align: center">해당하는 주소가 없습니다.</td>
 			</tr>
 			<% }else { %>
-				<% for(ZipcodeVO vo : list){
-					String address = vo.getSido() + " " + vo.getGugun() + " " + vo.getDong();
-					String sbunji = vo.getStartbunji();
-					String ebunji = vo.getEndbunji();
-					
-					if(sbunji == null) sbunji = "";
-					String bunji = "";
-					if(ebunji != null && !ebunji.isEmpty()){
-						bunji = sbunji + " ~ " + ebunji;
-					}else {
-						bunji = sbunji;
-					}//if
-					String zipcode = vo.getZipcode();	%>
-			<tr>
-				<td style="text-align: center;"><a href="#" onclick="setZipcode('<%=address %>','<%=zipcode %>')"><%=zipcode %></a></td>
-				<td><a href="#" onclick="setZipcode('<%=address %>','<%=zipcode %>')"><%=address %> <%=bunji %></a></td>
-			</tr>
-				<% }//for %>
+				<%	for(int i = 0; i < pageSize; i++){
+						if(num-- < 1) break;
+						
+						ZipcodeVO vo = list.get(curPos++);
+						String address = vo.getSido() + " " + vo.getGugun() + " " + vo.getDong();
+						String sbunji = vo.getStartbunji();
+						String ebunji = vo.getEndbunji();
+						
+						if(sbunji == null) sbunji = "";
+						
+						String bunji = "";
+						if(ebunji != null && !ebunji.isEmpty()){
+							bunji = sbunji + " ~ " + ebunji;
+						}else {
+							bunji = sbunji;
+						}//if
+						
+						String zipcode = vo.getZipcode();	%>
+				<tr>
+					<td style="text-align: center;"><a href="#" onclick="setZipcode('<%=address %>','<%=zipcode %>')"><%=zipcode %></a></td>
+					<td><a href="#" onclick="setZipcode('<%=address %>','<%=zipcode %>')"><%=address %> <%=bunji %></a></td>
+				</tr>
+				<%	}//for %>
 			<% }//if %>
 		</tbody>
 	</table>
 	<div class="zip_page">
-		
+	<% if(firstPage > 1){ %>
+		<a href="zipcode.jsp?currentPage=<%=firstPage-1 %>&dong=<%=dong %>"><img alt="이전블록으로 이동" src="../images/first.JPG"></a>
+	<% } %>
+		<%	for(int i = firstPage; i <= lastPage; i++){
+				if(i > totalPage) break;
+				
+				if(i == currentPage){	%>
+				<span style="font-weight: bold; color: red; padding: 5px;"><%=i %></span>
+			<%	}else { %>
+				<a href="zipcode.jsp?currentPage=<%=i %>&dong=<%=dong %>" class="zip_page_a"><%=i %></a>
+			<%	}//if %>
+		<%	}//for %>
+	<% if(lastPage < totalPage){ %>
+		<a href="zipcode.jsp?currentPage=<%=lastPage+1 %>&dong=<%=dong %>"><img alt="다음블록으로 이동" src="../images/last.JPG"></a>
+	<% } %>
 	</div>
 </body>
 </html>

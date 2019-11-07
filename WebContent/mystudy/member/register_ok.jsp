@@ -58,7 +58,7 @@
 		int n = dao.insertMember(vo);
 		if(n > 0){
 			msg = "회원가입 성공!";
-			url = "../login.jsp";
+			url = "../main.jsp";
 		}else{
 			msg = "회원가입 실패!";
 			url = "register.jsp";
