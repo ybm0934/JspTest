@@ -170,7 +170,7 @@
 				<tr>
 					<th colspan="2">
 						<input type="submit" name="reg_sub" id="reg_sub" class="reg_btn" value="회원가입">
-						<input type="button" name="reg_back" id="reg_back" value="취소">
+						<input type="button" name="reg_back" id="reg_back" class="reg_back" value="취소">
 					</th>
 				<tr>
 			</table>

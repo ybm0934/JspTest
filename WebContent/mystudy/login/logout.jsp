@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String id = (String) session.getAttribute("id");
-
-	session.removeAttribute("id");
+	//String id = (String) session.getAttribute("id");
+	//session.removeAttribute("id");
+	
+	session.invalidate();
 	
 	String msg = "로그아웃 되었습니다.";
 	String url = "../main.jsp";
+	
 	request.setAttribute("msg", msg);
 	request.setAttribute("url", url);
 %>

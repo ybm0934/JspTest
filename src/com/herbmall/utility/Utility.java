@@ -2,8 +2,11 @@ package com.herbmall.utility;
 
 import java.util.Date;
 
-public class Utility {
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
+public class Utility {
+	
 	// 긴 제목 자르기
 	public static String cutString(String title, int len) {
 		String result = "";
@@ -30,13 +33,13 @@ public class Utility {
 	}// displayRe
 
 	// 24시간 이내의 글인 경우 new이미지 보여주기
-	public static String displayNew(Date regdate) {
+	public static String displayNew(Date regdate, String path) {
 		Date today = new Date();
 		long gap = (today.getTime() - regdate.getTime()) / 1000; // 초
 		gap = gap / (60 * 60); // 시간
 		String result = "";
 		if (gap < 24) {
-			result = "<img src='../images/new.gif'>";
+			result = "<img src='" + path + "/mystudy/images/new.gif'>";
 		}
 
 		return result;

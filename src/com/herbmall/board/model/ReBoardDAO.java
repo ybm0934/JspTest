@@ -341,6 +341,34 @@ public class ReBoardDAO {
 		return n;
 	}// updateDownCount
 
+	public List<ReBoardVO> listNotice() throws SQLException {
+		List<ReBoardVO> list = new ArrayList<ReBoardVO>();
+
+		try {
+			con = pool.getConnection();
+
+			String sql = "select * from (select * from reboard order by no desc) where rownum <= 6";
+			ps = con.prepareStatement(sql);
+
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				ReBoardVO vo = new ReBoardVO();
+
+				vo.setNo(rs.getInt("no"));
+				vo.setTitle(rs.getString("title"));
+				vo.setRegdate(rs.getTimestamp("regdate"));
+				vo.setDelFlag(rs.getString("delflag"));
+
+				list.add(vo);
+			} // while
+
+		} finally {
+			pool.dbClose(rs, ps, con);
+		}
+
+		return list;
+	}// listNotice
+
 /*	
 	public int fileUpload(String fileName, String original, String fileSize) throws SQLException {
 		int n = 0;

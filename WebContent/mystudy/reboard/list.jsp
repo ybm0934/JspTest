@@ -66,6 +66,7 @@
 <%	}else {	%>
 	<p>전체조회 : <%=list.size() %>건 조회되었습니다.</p>
 <%	}	%>
+<a href="../main.jsp" style="text-decoration: none; color: black;">메인페이지</a>
 <div class="list_div">
 	<h1>
 		<a href="list.jsp" style="color: black; text-decoration: none;">게시판</a>
@@ -104,7 +105,7 @@
 				<%=Utility.displayRe(vo.getStep()) %>
 				<%=Utility.displayFile(vo.getFileName())%>
 				<a href="countUpdate.jsp?no=<%=vo.getNo()%>"><%=Utility.cutString(vo.getTitle(), 15) %></a>
-				<%=Utility.displayNew(vo.getRegdate()) %>
+				<%=Utility.displayNew(vo.getRegdate(), request.getContextPath()) %>
 			<%} %>
 			</td>
 			<td><%=vo.getName() %></td>

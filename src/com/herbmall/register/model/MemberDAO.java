@@ -31,9 +31,9 @@ public class MemberDAO {
 
 		try {
 			con = pool.getConnection();
-			
+
 			String sql = "";
-			if(userid != null && !userid.isEmpty()) {
+			if (userid != null && !userid.isEmpty()) {
 				sql = "select userid from member where userid = ?";
 			}
 			ps = con.prepareStatement(sql);
@@ -193,5 +193,53 @@ public class MemberDAO {
 
 		return list;
 	}// selectZipcode
+
+	public int updateMember(MemberVO vo) throws SQLException {
+		int n = 0;
+
+		try {
+			con = pool.getConnection();
+
+			String sql = "update member"
+					+ " set name = ?, pwd = ?, email = ?, hp = ?, gender = ?, zipcode = ?, address = ?, addressdetail = ?"
+					+ " where userid = ? and outdate is null";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, vo.getName());
+			ps.setString(2, vo.getPwd());
+			ps.setString(3, vo.getEmail());
+			ps.setString(4, vo.getHp());
+			ps.setString(5, vo.getGender());
+			ps.setString(6, vo.getZipcode());
+			ps.setString(7, vo.getAddress());
+			ps.setString(8, vo.getAddressDetail());
+			ps.setString(9, vo.getUserid());
+
+			n = ps.executeUpdate();
+			System.out.println("회원 정보 수정 n = " + n + ", 값 vo = " + vo);
+		} finally {
+			pool.dbClose(ps, con);
+		}
+
+		return n;
+	}// updateMember
+
+	public int withdrawMember(String userid) throws SQLException {
+		int n = 0;
+
+		try {
+			con = pool.getConnection();
+
+			String sql = "update member set outdate = sysdate where userid = ? and outdate is null";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, userid);
+
+			n = ps.executeUpdate();
+			System.out.println("회원 탈퇴 n = " + n + ", userid = " + userid);
+		} finally {
+			pool.dbClose(ps, con);
+		}
+
+		return n;
+	}// withdrawMember
 
 }

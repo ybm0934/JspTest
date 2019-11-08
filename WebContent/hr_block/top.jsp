@@ -21,7 +21,7 @@
 			<li><a href="#">추천</a></li>
 			<li> | </li>
 			<li><a href="#">기업·연봉</a></li>
-			<li><a href="#">인재검색</a></li>
+			<li><a href="list.jsp">인재검색</a></li>
 			<li><a href="#">인적성검사</a></li>
 		</ul>
 	</div>
