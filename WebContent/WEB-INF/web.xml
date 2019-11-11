@@ -13,16 +13,19 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 		
-<!--  	
 	<servlet>
-		<servlet-name>HomeTest</servlet-name>
-		<servlet-class>com.member.go</servlet-class>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>com.controller.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>configFile</param-name>
+			<param-value>/config/Command.properties</param-value>
+		</init-param>
 	</servlet>
+	
 	<servlet-mapping>
-		<servlet-name>HomeTest</servlet-name>
-		<url-pattern>/HomeTest/</url-pattern>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
- -->	
 
 	<error-page>
 		<error-code>404</error-code>

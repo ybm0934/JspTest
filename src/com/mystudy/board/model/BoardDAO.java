@@ -127,6 +127,7 @@ public class BoardDAO {
 				int readcount = rs.getInt("readcount");
 				String content = rs.getString("content");
 
+				vo.setNo(no);
 				vo.setTitle(title);
 				vo.setName(name);
 				vo.setEmail(email);
@@ -158,7 +159,7 @@ public class BoardDAO {
 			ps.setInt(6, vo.getNo());
 
 			n = ps.executeUpdate();
-			System.out.println("글 수정 성공 n = " + n);
+			System.out.println("글 수정 n = " + n + ", 입력값 vo = " + vo);
 		} finally {
 			pool.dbClose(ps, con);
 		}
@@ -205,26 +206,32 @@ public class BoardDAO {
 		return n;
 	}// deleteBoard
 
-	public int pwdCheck(int no, String pwd) throws SQLException {
-		int n = 0;
-		
+	public boolean pwdCheck(int no, String pwd) throws SQLException {
+		boolean result = false;
+
 		try {
 			con = pool.getConnection();
 
-			String sql = "select * from board where no = ? and pwd = ?";
+			String sql = "select * from board where no = ?";
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, no);
-			ps.setString(2, pwd);
 
-			n = ps.executeUpdate();
-			
-			System.out.println("pwdCheck 결과 n = " + n + ", 입력값 no = " + no + ", pwd = " + pwd);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String dbPwd = rs.getString("pwd");
+
+				if (pwd.equals(dbPwd)) {
+					result = true;
+				}
+			}
+
+			System.out.println("pwdCheck result = " + result + ", 입력값 no = " + no + ", pwd = " + pwd);
 
 		} finally {
-			pool.dbClose(ps, con);
+			pool.dbClose(rs, ps, con);
 		}
-		
-		return n;
+
+		return result;
 	}// pwdCheck
-	
+
 }

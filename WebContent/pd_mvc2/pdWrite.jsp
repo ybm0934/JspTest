@@ -27,7 +27,7 @@
 </head>
 <body>
 	<h1>상품 등록</h1>
-	<form name="write" method="post" action="<%=request.getContextPath() %>/PD/pdWrite_ok.jsp" onsubmit="return send()">
+	<form name="write" method="post" action="<%=request.getContextPath() %>/pd/pdWrite.do" onsubmit="return send()">
 		<table>
 			<tr>
 				<th>상품명</th>
@@ -49,7 +49,7 @@
 			</tr>
 		</table>
 		<br><br>
-		<a href="<%=request.getContextPath() %>/PD/pdList.jsp">상품 목록</a>
+		<a href="<%=request.getContextPath() %>/pd/pdList.do">상품 목록</a>
 	</form>
 </body>
 </html>
