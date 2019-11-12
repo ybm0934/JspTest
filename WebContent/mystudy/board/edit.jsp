@@ -31,8 +31,8 @@
 			String email = "";
 
 		try {
-			int n = dao.pwdCheck(Integer.parseInt(no), pwd);
-			if (n == 0) {
+			boolean n = dao.pwdCheck(Integer.parseInt(no), pwd);
+			if (n != true) {
 	%>
 	<!-- 크롬에서 자바 스크립트를 막아버리면 그냥 뚫려버리는 문제가 있다 -->
 	<script>
@@ -40,15 +40,16 @@
 		history.back();
 	</script>
 	<%
-		}
-			vo = dao.selectByNo(Integer.parseInt(no));
-
-			content = vo.getContent();
-			email = vo.getEmail();
-			if (content == null)
-				content = "";
-			if (email == null)
-				email = "";
+			}else {
+				vo = dao.selectByNo(Integer.parseInt(no));
+	
+				content = vo.getContent();
+				email = vo.getEmail();
+				if (content == null)
+					content = "";
+				if (email == null)
+					email = "";
+			}
 
 		} catch (SQLException e) {
 			System.out.println("수정 화면 불러오기 error : " + e);
